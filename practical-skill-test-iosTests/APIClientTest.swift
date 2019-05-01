@@ -47,7 +47,8 @@ class APIClientTest: XCTestCase {
             headers: [:],
             methodAndPayload: .get
         )
-        APIClient.call(with: imput)
+        APIClient.call(with: imput) { _ in
+        }
     }
     
     func testResponse() {
@@ -67,7 +68,7 @@ class APIClientTest: XCTestCase {
     }
     
     func testAPIRequest() {
-        let expectation = self.expectation(description: "API")
+        let expectation = self.expectation(description: "APIリクエストが行えているかのテスト")
         let input: Input = (
             url: URL(string: "https://api.github.com/zen")!,
             queries: [],

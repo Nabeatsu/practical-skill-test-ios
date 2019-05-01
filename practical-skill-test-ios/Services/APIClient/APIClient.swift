@@ -103,13 +103,6 @@ enum HTTPStatus {
 
 
 enum APIClient {
-    static func call(with input: Input) {
-        self.call(with: input) { _ in
-            // 何もしない
-        }
-    }
-    
-    
     static func call(with input: Input, _ block: @escaping (Output) -> Void) {
         let urlRequest = self.createURLRequest(by: input)
         let task = URLSession.shared.dataTask(with: urlRequest) { (data, urlResponse, error) in
@@ -182,11 +175,10 @@ enum Either<Left, Right> {
     }
 }
 
-// PostTokenStatusの変換で起きうるエラー一覧
 enum TransformError {
     // ペイロードが壊れたJSONだった場合のエラー
     case malformedData(debugInfo: String)
-    // HTTPステータスコードがOK以外だった場合のエラー
+    // HTTPステータスコードがOK以外だった場合
     case noContent
     case unexpectedStatusCode(debugInfo: String)
 }

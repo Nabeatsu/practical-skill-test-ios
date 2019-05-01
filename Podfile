@@ -17,5 +17,7 @@ target "practical-skill-test-ios" do
   target "practical-skill-test-iosUITests" do
     inherit! :search_paths
     # Pods for testing
+    pod "Firebase/Core"
+    pod "Firebase/Auth"
   end
 end

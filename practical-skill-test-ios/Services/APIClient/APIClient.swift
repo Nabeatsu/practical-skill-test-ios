@@ -102,7 +102,7 @@ enum HTTPStatus {
 
 
 
-enum WebAPI {
+enum APIClient {
     static func call(with input: Input) {
         self.call(with: input) { _ in
             // 何もしない
@@ -214,15 +214,16 @@ extension APIClientDelegate where Self: Codable {
             return .left(.unexpectedStatusCode(debugInfo: "\(response.statusCode)"))
         }
     }
-    
-    
+}
+
+extension APIClientDelegate {
     static func fetch(
         method: HTTPMethodAndPayload,
         queries: [URLQueryItem] = [],
         apiPath: String,
         _ block: @escaping (Either<Either<ConnectionError, TransformError>, Self>) -> Void
         ) {
-        let urlString = "\(Bundle.main.object(forInfoDictionaryKey: "GetDomainURL") as! String)/\(apiPath)"
+        let urlString = "\(apiPath)"
         var component = URLComponents(string: urlString)
         component?.queryItems = queries
         guard let url = component?.url else {
@@ -236,7 +237,7 @@ extension APIClientDelegate where Self: Codable {
             methodAndPayload: method
         )
         
-        WebAPI.call(with: input) { output in
+        APIClient.call(with: input) { output in
             switch output {
             case let .noResponse(connectionError):
                 block(.left(.left(connectionError)))

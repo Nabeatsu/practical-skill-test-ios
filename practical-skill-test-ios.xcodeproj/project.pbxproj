@@ -18,6 +18,7 @@
 		55B9AB642278EB0A00C38266 /* practical_skill_test_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9AB632278EB0A00C38266 /* practical_skill_test_iosUITests.swift */; };
 		55B9AB742278ECA400C38266 /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9AB732278ECA400C38266 /* AuthClient.swift */; };
 		55B9AB762278ECC200C38266 /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9AB752278ECC200C38266 /* AuthDelegate.swift */; };
+		55B9AB792279C6B300C38266 /* WebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9AB782279C6B300C38266 /* WebAPI.swift */; };
 		B20DAF3149492A5D0F0F6FED /* Pods_practical_skill_test_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC753803607E263BC0E3125 /* Pods_practical_skill_test_iosUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		55B9AB652278EB0A00C38266 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55B9AB732278ECA400C38266 /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
 		55B9AB752278ECC200C38266 /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
+		55B9AB782279C6B300C38266 /* WebAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAPI.swift; sourceTree = "<group>"; };
 		69D057A4D208884776B68E2B /* Pods_practical_skill_test_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_practical_skill_test_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FC753803607E263BC0E3125 /* Pods_practical_skill_test_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_practical_skill_test_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7EECC01CD170515A7FEF4A2 /* Pods-practical-skill-test-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-practical-skill-test-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-practical-skill-test-iosTests/Pods-practical-skill-test-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 		55B9AB712278EC6100C38266 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				55B9AB772279C69700C38266 /* APIClient */,
 				55B9AB722278EC7200C38266 /* Authentication */,
 			);
 			path = Services;
@@ -162,6 +165,14 @@
 				55B9AB752278ECC200C38266 /* AuthDelegate.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		55B9AB772279C69700C38266 /* APIClient */ = {
+			isa = PBXGroup;
+			children = (
+				55B9AB782279C6B300C38266 /* WebAPI.swift */,
+			);
+			path = APIClient;
 			sourceTree = "<group>";
 		};
 		813C545AA081A26B476987E0 /* Frameworks */ = {
@@ -417,6 +428,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55B9AB792279C6B300C38266 /* WebAPI.swift in Sources */,
 				55B9AB462278EB0900C38266 /* ViewController.swift in Sources */,
 				55B9AB742278ECA400C38266 /* AuthClient.swift in Sources */,
 				55B9AB762278ECC200C38266 /* AuthDelegate.swift in Sources */,

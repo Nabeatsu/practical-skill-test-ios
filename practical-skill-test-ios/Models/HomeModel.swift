@@ -12,7 +12,7 @@ import UIKit
 class HomeModel: NSObject, APIRequesting {
     typealias DataObject = [String: TaskData]
     var taskList: TaskList?
-    func request(method: HTTPMethodAndPayload, completion: @escaping ([String : TaskData]) -> Void) {
+    func request(method: HTTPMethodAndPayload, completion: @escaping ([String: TaskData]) -> Void) {
         switch method {
         case .get:
             getRequest(completion)
@@ -20,7 +20,7 @@ class HomeModel: NSObject, APIRequesting {
             return
         }
     }
-    
+
     private func getRequest(_ completion: @escaping (DataObject) -> Void) {
         TaskData.fetch(
             method: .get,
@@ -33,7 +33,7 @@ class HomeModel: NSObject, APIRequesting {
                 }
         }
     }
-    
+
 }
 
 extension HomeModel: TaskCellDataSource {}
@@ -43,7 +43,7 @@ extension HomeModel: UITableViewDataSource {
         guard let list = taskList?.tasks else { return 0 }
         return list.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let taskList = taskList, !taskList.tasks.isEmpty else { return UITableViewCell() }
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.nibName, for: indexPath) as! TaskCell
@@ -52,5 +52,3 @@ extension HomeModel: UITableViewDataSource {
         return cell
     }
 }
-
-

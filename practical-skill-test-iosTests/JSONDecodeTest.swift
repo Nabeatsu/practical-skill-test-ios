@@ -30,7 +30,7 @@ class JSONDecodeTest: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
+
     func testDecodeToTaskData() {
         let data = """
 {
@@ -52,9 +52,9 @@ class JSONDecodeTest: XCTestCase {
         let taskList = TaskList(data: result)
         XCTAssertEqual("alanisawesome", taskList.tasks[0].id)
         XCTAssertEqual("-LdvCzhfENNENh17ARpt", taskList.tasks[1].id)
-        
+
     }
-    
+
     func testDecodeToPostResponse() {
         let data = """
 {"name":"-LdvDClk8XwSU8tIPf9y"}

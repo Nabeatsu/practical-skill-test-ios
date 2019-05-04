@@ -47,19 +47,19 @@ extension AuthDelegate where Self: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-    
+
     func signUpCompletion() {
         guard let storyboard = storyboard else { return }
         let nextVC = storyboard.instantiateViewController(withIdentifier: "Home")
         present(nextVC, animated: true, completion: nil)
     }
-    
+
     func signInCompletion() {
         guard let storyboard = storyboard else { return }
         let nextVC = storyboard.instantiateViewController(withIdentifier: "Home")
         present(nextVC, animated: true, completion: nil)
     }
-    
+
     func signOutCompletion() {
         guard let storyboard = storyboard else { return }
         let nextVC = storyboard.instantiateViewController(withIdentifier: "まだ決めてない")

@@ -10,25 +10,25 @@ import Foundation
 import FirebaseAuth
 
 class AuthClient: NSObject {
-    
+
     weak var delegate: AuthDelegate?
     static var currentUser: User? {
         return Auth.auth().currentUser
     }
-    
+
     static var isSignedIn: Bool {
-        if let _ = currentUser {
+        if currentUser != nil {
             return true
         } else {
             return false
         }
     }
-    
+
     func showError(_ error: Error?) {
         guard let delegate = delegate, let error = error else { return }
         delegate.handle(error: error)
     }
-    
+
     func signUp(email: String, password: String, name: String) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
             guard let weakSelf = self else { return }
@@ -38,11 +38,11 @@ class AuthClient: NSObject {
             weakSelf.showError(error)
         }
     }
-    
+
     private func update(displayName name: String, of user: User) {
         let request = user.createProfileChangeRequest()
         request.displayName = name
-        request.commitChanges() { [weak self] error in
+        request.commitChanges { [weak self] error in
             guard let weakSelf = self else { return }
             if error == nil {
                 weakSelf.sendEmailVerification(to: user)
@@ -50,9 +50,9 @@ class AuthClient: NSObject {
             weakSelf.showError(error)
         }
     }
-    
+
     private func sendEmailVerification(to user: User) {
-        user.sendEmailVerification() { [weak self] error in
+        user.sendEmailVerification { [weak self] error in
             guard let weakSelf = self, let delegate = weakSelf.delegate else { return }
             if error == nil {
                 delegate.signUpCompletion()
@@ -60,18 +60,17 @@ class AuthClient: NSObject {
             weakSelf.showError(error)
         }
     }
-    
-    
+
     func signIn(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
             guard let weakSelf = self, let delegate = weakSelf.delegate else { return }
-            if let _ = result?.user {
+            if result?.user != nil {
                 delegate.signInCompletion()
             }
             weakSelf.showError(error)
         }
     }
-    
+
     func signOut() {
         guard let delegate = delegate else { return }
         do {

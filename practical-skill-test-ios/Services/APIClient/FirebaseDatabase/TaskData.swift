@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct TaskData: Codable, APIClientDelegate {
+struct TaskData: Codable, APIClientProtocol {
     typealias AssociatedType = [String: TaskData]
     static func jsonDecode(data: Data) throws -> [String: TaskData] {
         let jsonDecoder = JSONDecoder()
@@ -15,7 +15,7 @@ struct TaskData: Codable, APIClientDelegate {
         let result = try JSONDecoder().decode([String: TaskData].self, from: data)
         return result
     }
-    
+
     var title: String
     var description: String
     var createdAt: String
@@ -31,14 +31,13 @@ struct TaskList {
         var createdAt: String
         var updatedAt: String
     }
-    
-    
+
     /// TaskのorderはFirabase Realtime Datebaseの仕様上順番が保証されない。
     /// そのためupdateAtをDateに変換してsort
     /// - TODO: ソートの際にforced unwrappingしているので適切にエラー処理
     init(data: [String: TaskData]) {
         tasks = data.map { Task(id: $0.key, title: $0.value.title, description: $0.value.description, createdAt: $0.value.createdAt, updatedAt: $0.value.updatedAt)}
-        let f = DateFormatter()
-        tasks = tasks.sorted(by: {f.dateByDefaultLocale(from:$0.updatedAt)! < f.dateByDefaultLocale(from: $1.updatedAt)!} )
+        let formatter = DateFormatter()
+        tasks = tasks.sorted(by: {formatter.dateByDefaultLocale(from: $0.updatedAt)! < formatter.dateByDefaultLocale(from: $1.updatedAt)!})
     }
 }

@@ -16,15 +16,13 @@ typealias Request = (
     methodAndPayload: HTTPMethodAndPayload
 )
 
-
-
 enum HTTPMethodAndPayload {
     case get
     case post(payload: Data?)
     case put(payload: Data?)
     case patch(payload: Data?)
     case delete(payload: Data?)
-    
+
     var method: String {
         switch self {
         case .get:
@@ -39,37 +37,32 @@ enum HTTPMethodAndPayload {
             return "DELETE"
         }
     }
-    
+
     var body: Data? {
         switch self {
         case .get:
             return nil
-        case let .post(x):
-            return x
-        case let .put(x):
-            return x
-        case let .patch(x):
-            return x
-        case let .delete(x):
-            return x
+        case let .post(data):
+            return data
+        case let .put(data):
+            return data
+        case let .patch(data):
+            return data
+        case let .delete(data):
+            return data
         }
     }
 }
-
-
 
 enum Output {
     case hasResponse(Response)
     case noResponse(ConnectionError)
 }
 
-
 enum ConnectionError {
     case malformedURL(debugInfo: String)
     case noDataOrNoResponse(debugInfo: String)
 }
-
-
 
 typealias Response = (
     statusCode: HTTPStatus,
@@ -77,15 +70,12 @@ typealias Response = (
     payload: Data
 )
 
-
-
 enum HTTPStatus {
     case ok
     case notFound
     case noContent
     case unsupported(code: Int)
-    
-    
+
     static func from(code: Int) -> HTTPStatus {
         switch code {
         case 200:
@@ -100,8 +90,6 @@ enum HTTPStatus {
     }
 }
 
-
-
 enum APIClient {
     static func call(with input: Input, _ block: @escaping (Output) -> Void) {
         let urlRequest = self.createURLRequest(by: input)
@@ -111,13 +99,12 @@ enum APIClient {
                 urlResponse: urlResponse as? HTTPURLResponse,
                 error: error
             )
-            
+
             block(output)
         }
         task.resume()
     }
-    
-    
+
     static private func createURLRequest(by input: Input) -> URLRequest {
         var request = URLRequest(url: input.url)
         request.httpMethod = input.methodAndPayload.method
@@ -125,8 +112,7 @@ enum APIClient {
         request.allHTTPHeaderFields = input.headers
         return request
     }
-    
-    
+
     static private func createOutput(
         data: Data?,
         urlResponse: HTTPURLResponse?,
@@ -135,7 +121,7 @@ enum APIClient {
         guard let data = data, let response = urlResponse else {
             return .noResponse(.noDataOrNoResponse(debugInfo: error.debugDescription))
         }
-        
+
         var headers: [String: String] = [:]
         for (key, value) in response.allHeaderFields.enumerated() {
             headers[key.description] = String(describing: value)
@@ -148,29 +134,27 @@ enum APIClient {
     }
 }
 
-
-
 enum Either<Left, Right> {
     case left(Left)
     case right(Right)
-    
+
     var left: Left? {
         switch self {
-        case let .left(x):
-            return x
-            
+        case let .left(left):
+            return left
+
         case .right:
             return nil
         }
     }
-    
+
     var right: Right? {
         switch self {
         case .left:
             return nil
-            
-        case let .right(x):
-            return x
+
+        case let .right(right):
+            return right
         }
     }
 }
@@ -183,14 +167,13 @@ enum TransformError {
     case unexpectedStatusCode(debugInfo: String)
 }
 
-
-protocol APIClientDelegate {
+protocol APIClientProtocol {
     associatedtype DataObject
     static func from(response: Response) -> Either<TransformError, DataObject>
     static func jsonDecode(data: Data) throws -> DataObject
 }
 
-extension APIClientDelegate where Self: Codable {
+extension APIClientProtocol where Self: Codable {
     typealias DataObject = Self.DataObject
     static func from(response: Response) -> Either<TransformError, DataObject> {
         switch response.statusCode {
@@ -209,7 +192,7 @@ extension APIClientDelegate where Self: Codable {
     }
 }
 
-extension APIClientDelegate {
+extension APIClientProtocol {
     static func fetch(
         method: HTTPMethodAndPayload,
         queries: [URLQueryItem] = [],
@@ -226,10 +209,10 @@ extension APIClientDelegate {
         let input: Input = (
             url: url,
             queries: queries,
-            headers: ["Content-Type":"application/json"],
+            headers: ["Content-Type": "application/json"],
             methodAndPayload: method
         )
-        
+
         APIClient.call(with: input) { output in
             switch output {
             case let .noResponse(connectionError):

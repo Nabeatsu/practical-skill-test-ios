@@ -328,6 +328,7 @@
 				55B9AB3D2278EB0900C38266 /* Frameworks */,
 				55B9AB3E2278EB0900C38266 /* Resources */,
 				6203A0F3BE4C22483481FBE9 /* [CP] Embed Pods Frameworks */,
+				556AAF01227E04BE0066CBCD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -521,6 +522,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-practical-skill-test-iosUITests/Pods-practical-skill-test-iosUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		556AAF01227E04BE0066CBCD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\nswiftlint autocorrect --format\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		57C5E3E98A300BFFC8430BBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

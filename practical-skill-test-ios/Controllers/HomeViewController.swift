@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
             tableView.register(UINib(nibName: TaskCell.nibName, bundle: nil), forCellReuseIdentifier: TaskCell.nibName)
         }
     }
-    
+
     var dataSource = HomeModel()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,5 +33,5 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITableViewDelegate {
-    
+
 }

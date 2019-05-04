@@ -12,7 +12,7 @@ class TaskCell: UITableViewCell, InstantiatableFromNib {
     @IBOutlet private weak var taskNameLabel: UILabel!
     @IBOutlet private weak var taskDetailButton: UIButton!
     @IBAction private func tappedTaskDetailButton(_ sender: UIButton) {
-        
+
     }
     var index: Int!
     weak var dataSource: TaskCellDataSource? {
@@ -28,8 +28,7 @@ class TaskCell: UITableViewCell, InstantiatableFromNib {
             weakSelf.taskNameLabel.text = taskList.tasks[weakSelf.index].title
         }
     }
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -44,4 +43,4 @@ class TaskCell: UITableViewCell, InstantiatableFromNib {
 protocol TaskCellDataSource: AnyObject {
     var taskList: TaskList? { get set }
 }
-protocol TaskCellDelegate {}
+protocol TaskCellDelegate: AnyObject {}

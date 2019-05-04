@@ -30,16 +30,16 @@ class ExtensionTest: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
+
     func testStringByDefaultLocale() {
         let now = Date()
-        let f = DateFormatter()
-        XCTAssertNotNil(f.stringByDefaultLocale(from: now))
+        let formatter = DateFormatter()
+        XCTAssertNotNil(formatter.stringByDefaultLocale(from: now))
     }
-    
+
     func testDateByDefaultLocale() {
         let string = "2019/05/04 08:09:42"
-        let f = DateFormatter()
-        XCTAssertNotNil(f.dateByDefaultLocale(from: string))
+        let formatter = DateFormatter()
+        XCTAssertNotNil(formatter.dateByDefaultLocale(from: string))
     }
 }

@@ -21,7 +21,7 @@ class RegisterViewController: UIViewController {
         let password = passwordTextField.text ?? ""
         let name = nameTextField.text ?? ""
         authClient.signUp(email: email, password: password, name: name)
-        
+
     }
 
     override func viewDidLoad() {
@@ -32,7 +32,6 @@ class RegisterViewController: UIViewController {
         emailTextField.delegate = self
         passwordTextField.delegate = self
     }
-    
 
 }
 
@@ -42,13 +41,11 @@ extension RegisterViewController: UITextFieldDelegate {
         editingField = textField
         return true
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let editingField = editingField else { return true }
         editingField.resignFirstResponder()
         return true
-        
-        
+
     }
 }
-

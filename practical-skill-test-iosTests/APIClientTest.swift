@@ -11,7 +11,14 @@ import XCTest
 
 class APIClientTest: XCTestCase {
 
-    struct GitHubAPI: APIClientDelegate {
+    struct GitHubAPI: Codable, APIClientProtocol {
+        static func jsonDecode(data: Data) throws -> APIClientTest.GitHubAPI {
+            let jsonDecoder = JSONDecoder()
+            jsonDecoder.keyDecodingStrategy = .useDefaultKeys
+            let result = try! jsonDecoder.decode(APIClientTest.GitHubAPI.self, from: data)
+            return result
+        }
+
         let text: String
         static func from(response: Response) -> Either<TransformError, APIClientTest.GitHubAPI> {
             switch response.statusCode {
@@ -38,8 +45,8 @@ class APIClientTest: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-    
-    func testRequest()  {
+
+    func testRequest() {
         let imput: Request = (
             url: URL(string: "https://api.github.com/zen")!,
             queries: [],
@@ -49,14 +56,14 @@ class APIClientTest: XCTestCase {
         APIClient.call(with: imput) { _ in
         }
     }
-    
+
     func testResponse() {
         let response: Response = (
             statusCode: .ok,
             headers: [:],
             payload: "this is response text".data(using: .utf8)!
         )
-        
+
         let errorOrResult = GitHubAPI.from(response: response)
         switch errorOrResult {
         case let .left(error):
@@ -65,7 +72,7 @@ class APIClientTest: XCTestCase {
             XCTAssertEqual(result.text, "this is response text")
         }
     }
-    
+
     func testAPIRequest() {
         let expectation = self.expectation(description: "APIリクエストが行えているかのテスト")
         let input: Input = (
@@ -91,7 +98,7 @@ class APIClientTest: XCTestCase {
         }
         self.waitForExpectations(timeout: 10)
     }
-    
+
     func testGitHubAPI() {
         let expectation = self.expectation(description: "GitHubのAPI")
         let input: Input = (
@@ -112,7 +119,7 @@ class APIClientTest: XCTestCase {
         }
         self.waitForExpectations(timeout: 10)
     }
-    
+
     func testGitHubAPIFetch() {
         let expectation = self.expectation(description: "GitHubのZen APIへのfetchを使ったリクエスト")
         GitHubAPI.fetch(
@@ -128,8 +135,6 @@ class APIClientTest: XCTestCase {
         }
         self.waitForExpectations(timeout: 10)
     }
-    
-    
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

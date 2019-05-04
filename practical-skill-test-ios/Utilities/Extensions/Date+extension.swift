@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 extension DateFormatter {
     enum Templete: String {
         case full = "yyyy/MM/dd HH:mm:ss" // 2017/1/1 12:39:22
@@ -22,8 +21,7 @@ extension DateFormatter {
         set(.full)
         return string(from: date)
     }
-    
-    
+
     /// - Parameter string: yyyy/MM//dd HH:mm:ssの形式
     func dateByDefaultLocale(from string: String) -> Date? {
         locale = Locale(identifier: "en_US_POSIX")
@@ -31,5 +29,3 @@ extension DateFormatter {
         return date(from: string)
     }
 }
-
-

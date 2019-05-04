@@ -19,6 +19,10 @@
 		556AAEF0227C154D0066CBCD /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEEF227C154D0066CBCD /* PostResponse.swift */; };
 		556AAEF3227CFD7F0066CBCD /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEF2227CFD7F0066CBCD /* Date+extension.swift */; };
 		556AAEF5227D01520066CBCD /* ExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEF4227D01520066CBCD /* ExtensionTest.swift */; };
+		556AAEF7227DCC1F0066CBCD /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEF6227DCC1F0066CBCD /* HomeModel.swift */; };
+		556AAEFB227DF79F0066CBCD /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEF9227DF79F0066CBCD /* TaskCell.swift */; };
+		556AAEFC227DF79F0066CBCD /* TaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 556AAEFA227DF79F0066CBCD /* TaskCell.xib */; };
+		556AAF00227DFCD50066CBCD /* InstantiatableFromNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEFF227DFCD50066CBCD /* InstantiatableFromNib.swift */; };
 		55B9AB442278EB0900C38266 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9AB432278EB0900C38266 /* AppDelegate.swift */; };
 		55B9AB462278EB0900C38266 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9AB452278EB0900C38266 /* RegisterViewController.swift */; };
 		55B9AB492278EB0900C38266 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55B9AB472278EB0900C38266 /* Main.storyboard */; };
@@ -60,6 +64,10 @@
 		556AAEEF227C154D0066CBCD /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
 		556AAEF2227CFD7F0066CBCD /* Date+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extension.swift"; sourceTree = "<group>"; };
 		556AAEF4227D01520066CBCD /* ExtensionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTest.swift; sourceTree = "<group>"; };
+		556AAEF6227DCC1F0066CBCD /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		556AAEF9227DF79F0066CBCD /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		556AAEFA227DF79F0066CBCD /* TaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCell.xib; sourceTree = "<group>"; };
+		556AAEFF227DFCD50066CBCD /* InstantiatableFromNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantiatableFromNib.swift; sourceTree = "<group>"; };
 		55B9AB402278EB0900C38266 /* practical-skill-test-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "practical-skill-test-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55B9AB432278EB0900C38266 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55B9AB452278EB0900C38266 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +151,7 @@
 		556AAEDF227A7B090066CBCD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				556AAEF6227DCC1F0066CBCD /* HomeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -150,18 +159,45 @@
 		556AAEE0227A7B470066CBCD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				556AAEF8227DF7230066CBCD /* Homes */,
 				55B9AB472278EB0900C38266 /* Main.storyboard */,
 				55B9AB4C2278EB0A00C38266 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		556AAEF1227CFD690066CBCD /* Extensions */ = {
+		556AAEF1227CFD690066CBCD /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				556AAEFE227DFCBA0066CBCD /* Protocols */,
+				556AAEFD227DFCB20066CBCD /* Extensions */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		556AAEF8227DF7230066CBCD /* Homes */ = {
+			isa = PBXGroup;
+			children = (
+				556AAEF9227DF79F0066CBCD /* TaskCell.swift */,
+				556AAEFA227DF79F0066CBCD /* TaskCell.xib */,
+			);
+			path = Homes;
+			sourceTree = "<group>";
+		};
+		556AAEFD227DFCB20066CBCD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				556AAEF2227CFD7F0066CBCD /* Date+extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		556AAEFE227DFCBA0066CBCD /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				556AAEFF227DFCD50066CBCD /* InstantiatableFromNib.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		55B9AB372278EB0900C38266 = {
@@ -189,7 +225,7 @@
 		55B9AB422278EB0900C38266 /* practical-skill-test-ios */ = {
 			isa = PBXGroup;
 			children = (
-				556AAEF1227CFD690066CBCD /* Extensions */,
+				556AAEF1227CFD690066CBCD /* Utilities */,
 				556AAEE0227A7B470066CBCD /* Views */,
 				556AAEDF227A7B090066CBCD /* Models */,
 				556AAEDE227A7AFC0066CBCD /* Controllers */,
@@ -205,11 +241,11 @@
 		55B9AB572278EB0A00C38266 /* practical-skill-test-iosTests */ = {
 			isa = PBXGroup;
 			children = (
-				55B9AB582278EB0A00C38266 /* practical_skill_test_iosTests.swift */,
 				550CC1D22279D83E00D9C93B /* APIClientTest.swift */,
 				556AAEEB227C0C6B0066CBCD /* JSONDecodeTest.swift */,
 				55B9AB5A2278EB0A00C38266 /* Info.plist */,
 				556AAEF4227D01520066CBCD /* ExtensionTest.swift */,
+				55B9AB582278EB0A00C38266 /* practical_skill_test_iosTests.swift */,
 			);
 			path = "practical-skill-test-iosTests";
 			sourceTree = "<group>";
@@ -390,6 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55B9AB4E2278EB0A00C38266 /* LaunchScreen.storyboard in Resources */,
+				556AAEFC227DF79F0066CBCD /* TaskCell.xib in Resources */,
 				556AAEE8227AA4700066CBCD /* GoogleService-Info.plist in Resources */,
 				55B9AB4B2278EB0A00C38266 /* Assets.xcassets in Resources */,
 				55B9AB492278EB0900C38266 /* Main.storyboard in Resources */,
@@ -542,12 +579,15 @@
 			files = (
 				55B9AB792279C6B300C38266 /* APIClient.swift in Sources */,
 				556AAEF3227CFD7F0066CBCD /* Date+extension.swift in Sources */,
+				556AAEF7227DCC1F0066CBCD /* HomeModel.swift in Sources */,
 				55B9AB462278EB0900C38266 /* RegisterViewController.swift in Sources */,
 				556AAEF0227C154D0066CBCD /* PostResponse.swift in Sources */,
 				55B9AB742278ECA400C38266 /* AuthClient.swift in Sources */,
 				55B9AB762278ECC200C38266 /* AuthDelegate.swift in Sources */,
+				556AAEFB227DF79F0066CBCD /* TaskCell.swift in Sources */,
 				556AAEEE227C0D300066CBCD /* TaskData.swift in Sources */,
 				55B9AB442278EB0900C38266 /* AppDelegate.swift in Sources */,
+				556AAF00227DFCD50066CBCD /* InstantiatableFromNib.swift in Sources */,
 				556AAEE2227A7E700066CBCD /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

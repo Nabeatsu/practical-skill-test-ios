@@ -9,22 +9,29 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    @IBOutlet weak private var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.estimatedRowHeight = 1000
+            tableView.rowHeight = UITableView.automaticDimension
+            tableView.dataSource = dataSource
+            tableView.register(UINib(nibName: TaskCell.nibName, bundle: nil), forCellReuseIdentifier: TaskCell.nibName)
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    var dataSource = HomeModel()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        dataSource.request(method: .get) { [weak self] result in
+            guard let weakSelf = self else { return }
+            weakSelf.dataSource.taskList = TaskList(data: result)
+            DispatchQueue.main.async {
+                weakSelf.tableView.reloadData()
+            }
+        }
     }
-    */
+}
 
+extension HomeViewController: UITableViewDelegate {
+    
 }

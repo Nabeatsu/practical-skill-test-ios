@@ -7,7 +7,15 @@
 //
 
 import Foundation
-struct TaskData: Codable {
+struct TaskData: Codable, APIClientDelegate {
+    typealias AssociatedType = [String: TaskData]
+    static func jsonDecode(data: Data) throws -> [String: TaskData] {
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.keyDecodingStrategy = .useDefaultKeys
+        let result = try JSONDecoder().decode([String: TaskData].self, from: data)
+        return result
+    }
+    
     var title: String
     var description: String
     var createdAt: String

@@ -185,17 +185,18 @@ enum TransformError {
 
 
 protocol APIClientDelegate {
-    static func from(response: Response) -> Either<TransformError, Self>
+    associatedtype DataObject
+    static func from(response: Response) -> Either<TransformError, DataObject>
+    static func jsonDecode(data: Data) throws -> DataObject
 }
 
 extension APIClientDelegate where Self: Codable {
-    static func from(response: Response) -> Either<TransformError, Self> {
+    typealias DataObject = Self.DataObject
+    static func from(response: Response) -> Either<TransformError, DataObject> {
         switch response.statusCode {
         case .ok:
             do {
-                let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .useDefaultKeys
-                let result = try jsonDecoder.decode(Self.self, from: response.payload)
+                let result = try jsonDecode(data: response.payload)
                 return .right(result)
             } catch {
                 return .left(.malformedData(debugInfo: "\(error)"))
@@ -213,7 +214,7 @@ extension APIClientDelegate {
         method: HTTPMethodAndPayload,
         queries: [URLQueryItem] = [],
         apiPath: String,
-        _ block: @escaping (Either<Either<ConnectionError, TransformError>, Self>) -> Void
+        _ block: @escaping (Either<Either<ConnectionError, TransformError>, DataObject>) -> Void
         ) {
         let urlString = "\(apiPath)"
         var component = URLComponents(string: urlString)
@@ -244,4 +245,9 @@ extension APIClientDelegate {
             }
         }
     }
+}
+
+protocol APIRequesting {
+    associatedtype DataObject
+    func request(method: HTTPMethodAndPayload, completion: @escaping(DataObject) -> Void)
 }

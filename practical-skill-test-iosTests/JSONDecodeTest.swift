@@ -72,7 +72,7 @@ null
         let data = """
 {"name":"-LdvDClk8XwSU8tIPf9y"}
 """.data(using: .utf8)!
-        let result = try! JSONDecoder().decode(PostResponse.self, from: data)
+        let result = try! JSONDecoder().decode(TaskId.self, from: data)
         XCTAssertEqual(result.name, "-LdvDClk8XwSU8tIPf9y")
     }
 }

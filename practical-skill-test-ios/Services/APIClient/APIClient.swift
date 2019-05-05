@@ -229,8 +229,3 @@ extension APIClientProtocol {
         }
     }
 }
-
-protocol APIRequesting {
-    associatedtype DataObject
-    func request(method: HTTPMethodAndPayload, completion: @escaping(DataObject) -> Void)
-}

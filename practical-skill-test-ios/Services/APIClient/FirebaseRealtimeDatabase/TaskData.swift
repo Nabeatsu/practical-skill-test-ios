@@ -20,6 +20,19 @@ struct TaskData: Codable, APIClientProtocol {
         }
     }
 
+    static func createParams(title: String, description: String, createdAt: String?, updatedAt: String) -> Data? {
+        var hash = [
+            "title": title,
+            "description": description,
+            "updatedAt": updatedAt
+        ]
+        if let createdAt = createdAt {
+            hash["createdAt"] = createdAt
+        }
+        let params = try? JSONSerialization.data(withJSONObject: hash, options: .prettyPrinted)
+        return params
+    }
+
     var title: String
     var description: String
     var createdAt: String

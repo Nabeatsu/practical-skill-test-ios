@@ -20,9 +20,31 @@ class HomeViewController: UIViewController {
     }
 
     var dataSource = HomeModel()
+    let authClient = AuthClient()
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataSource.request(method: .get) { [weak self] errorOrResult in
+        loadTasks()
+    }
+
+    private func createTask(title: String, description: String) {
+        dataSource.firebaseDBClient.post(title: title, description: description) { [weak self] errorOrResult in
+            guard let _ = self else { return }
+            switch errorOrResult {
+            case let .left(error):
+                switch error {
+                case let .left(connectionError):
+                    fatalError("\(connectionError)")
+                case let .right(transformError):
+                    fatalError("\(transformError)")
+                }
+            case let .right(result):
+                print("中身: \(String(describing: result))")
+            }
+        }
+    }
+
+    private func loadTasks() {
+        dataSource.firebaseDBClient.get { [weak self] errorOrResult in
             guard let weakSelf = self else { return }
 
             switch errorOrResult {

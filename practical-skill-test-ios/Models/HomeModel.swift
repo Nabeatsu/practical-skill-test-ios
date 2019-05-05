@@ -9,28 +9,9 @@
 import Foundation
 import UIKit
 
-class HomeModel: NSObject, APIRequesting {
-    typealias DataObject = Either<Either<ConnectionError, TransformError>, [String: TaskData]?>
+class HomeModel: NSObject {
     var taskList: TaskList?
-    func request(method: HTTPMethodAndPayload, completion: @escaping (DataObject) -> Void) {
-        switch method {
-        case .get:
-            getRequest(completion)
-        default:
-            return
-        }
-    }
-
-    //"https://practical-skill-test-ios.firebaseio.com/tasks/-LdvDClk8XwSU8tIPf9y.json?print=pretty"
-    private func getRequest(_ completion: @escaping (DataObject) -> Void) {
-        TaskData.fetch(
-            method: .get,
-            apiPath: "https://practical-skill-test-ios.firebaseio.com/tasks/zdvDClk8XwSU8tIPf9y.json?print=pretty") { errorOrResult in
-                completion(errorOrResult)
-
-        }
-    }
-
+    var firebaseDBClient = FirebaseDBClient()
 }
 
 extension HomeModel: TaskCellDataSource {}

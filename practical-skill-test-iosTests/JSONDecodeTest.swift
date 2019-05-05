@@ -55,6 +55,19 @@ class JSONDecodeTest: XCTestCase {
 
     }
 
+    func testDecodeToTaskNil() {
+        let data = """
+null
+""".data(using: .utf8)!
+        do {
+            let result = try TaskData.jsonDecode(data: data)
+            XCTAssertNil(result)
+        } catch {
+            XCTFail("\(error)")
+        }
+
+    }
+
     func testDecodeToPostResponse() {
         let data = """
 {"name":"-LdvDClk8XwSU8tIPf9y"}

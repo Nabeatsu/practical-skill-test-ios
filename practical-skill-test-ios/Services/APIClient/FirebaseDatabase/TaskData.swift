@@ -8,12 +8,16 @@
 
 import Foundation
 struct TaskData: Codable, APIClientProtocol {
-    typealias AssociatedType = [String: TaskData]
-    static func jsonDecode(data: Data) throws -> [String: TaskData] {
+    typealias AssociatedType = [String: TaskData]?
+    static func jsonDecode(data: Data) throws -> AssociatedType {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .useDefaultKeys
-        let result = try JSONDecoder().decode([String: TaskData].self, from: data)
-        return result
+        do {
+            let result = try jsonDecoder.decode(AssociatedType.self, from: data)
+            return result
+        } catch DecodingError.dataCorrupted(_) {
+            return nil
+        }
     }
 
     var title: String
@@ -35,7 +39,11 @@ struct TaskList {
     /// TaskのorderはFirabase Realtime Datebaseの仕様上順番が保証されない。
     /// そのためupdateAtをDateに変換してsort
     /// - TODO: ソートの際にforced unwrappingしているので適切にエラー処理
-    init(data: [String: TaskData]) {
+    init(data: [String: TaskData]?) {
+        guard let data = data else {
+            tasks = []
+            return
+        }
         tasks = data.map { Task(id: $0.key, title: $0.value.title, description: $0.value.description, createdAt: $0.value.createdAt, updatedAt: $0.value.updatedAt)}
         let formatter = DateFormatter()
         tasks = tasks.sorted(by: {formatter.dateByDefaultLocale(from: $0.updatedAt)! < formatter.dateByDefaultLocale(from: $1.updatedAt)!})

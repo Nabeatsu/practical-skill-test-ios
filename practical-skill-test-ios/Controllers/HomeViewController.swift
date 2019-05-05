@@ -22,9 +22,25 @@ class HomeViewController: UIViewController {
     var dataSource = HomeModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataSource.request(method: .get) { [weak self] result in
+        dataSource.request(method: .get) { [weak self] errorOrResult in
             guard let weakSelf = self else { return }
-            weakSelf.dataSource.taskList = TaskList(data: result)
+
+            switch errorOrResult {
+            case let .left(error):
+                print("error: \(error)")
+                switch error {
+                case let .left(connectionError):
+                    let alert = UIAlertController(title: "コネクションエラー", message: "\(connectionError)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
+                    weakSelf.present(alert, animated: true)
+                case let .right(transformError):
+                    let alert = UIAlertController(title: "トランスフォームエラー", message: "\(transformError)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
+                    weakSelf.present(alert, animated: true)
+                }
+            case let .right(result):
+                weakSelf.dataSource.taskList = TaskList(data: result)
+            }
             DispatchQueue.main.async {
                 weakSelf.tableView.reloadData()
             }

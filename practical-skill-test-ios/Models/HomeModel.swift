@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 class HomeModel: NSObject, APIRequesting {
-    typealias DataObject = [String: TaskData]
+    typealias DataObject = Either<Either<ConnectionError, TransformError>, [String: TaskData]?>
     var taskList: TaskList?
-    func request(method: HTTPMethodAndPayload, completion: @escaping ([String: TaskData]) -> Void) {
+    func request(method: HTTPMethodAndPayload, completion: @escaping (DataObject) -> Void) {
         switch method {
         case .get:
             getRequest(completion)
@@ -21,16 +21,13 @@ class HomeModel: NSObject, APIRequesting {
         }
     }
 
+    //"https://practical-skill-test-ios.firebaseio.com/tasks/-LdvDClk8XwSU8tIPf9y.json?print=pretty"
     private func getRequest(_ completion: @escaping (DataObject) -> Void) {
         TaskData.fetch(
             method: .get,
-            apiPath: "https://practical-skill-test-ios.firebaseio.com/tasks/-LdvDClk8XwSU8tIPf9y.json?print=pretty") { errorOrResult in
-                switch errorOrResult {
-                case let .left(error):
-                    print("error: \(error)")
-                case let .right(result):
-                    completion(result)
-                }
+            apiPath: "https://practical-skill-test-ios.firebaseio.com/tasks/zdvDClk8XwSU8tIPf9y.json?print=pretty") { errorOrResult in
+                completion(errorOrResult)
+
         }
     }
 

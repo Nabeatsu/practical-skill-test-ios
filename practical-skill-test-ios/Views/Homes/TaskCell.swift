@@ -9,7 +9,7 @@
 import UIKit
 
 class TaskCell: UITableViewCell, InstantiatableFromNib {
-    @IBOutlet private weak var taskNameLabel: UILabel!
+    @IBOutlet private weak var taskNameView: UITextView!
     @IBOutlet private weak var taskDetailButton: UIButton!
     @IBAction private func tappedTaskDetailButton(_ sender: UIButton) {
 
@@ -25,7 +25,7 @@ class TaskCell: UITableViewCell, InstantiatableFromNib {
         guard let taskList = dataSource?.taskList else { return }
         DispatchQueue.main.async { [weak self] in
             guard let weakSelf = self else { return }
-            weakSelf.taskNameLabel.text = taskList.tasks[weakSelf.index].title
+            weakSelf.taskNameView.text = taskList.tasks[weakSelf.index].title
         }
     }
 

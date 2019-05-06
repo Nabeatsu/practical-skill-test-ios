@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct FirebaseDBClient {
+class FirebaseDBClient {
+    var timeStamp: String?
     func get(completion: @escaping(GetAPIResponse) -> Void) {
         guard let uid = AuthClient.currentUser?.uid else {
             fatalError("cannot get uid")
@@ -23,10 +24,12 @@ struct FirebaseDBClient {
         let now = Date()
         let formatter = DateFormatter()
         guard let dateString = formatter.stringByDefaultLocale(from: now) else { fatalError("Logic Error") }
+        timeStamp = dateString
         guard let params = TaskData.createParams(title: title, description: description, createdAt: dateString, updatedAt: dateString) else { return }
         guard let uid = AuthClient.currentUser?.uid else {
             fatalError("cannot get uid")
         }
+
         TaskId.fetch(
             method: .post(payload: params),
             apiPath: "https://practical-skill-test-ios.firebaseio.com/tasks/\(uid).json") { errorOrResult in

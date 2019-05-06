@@ -48,7 +48,7 @@ class JSONDecodeTest: XCTestCase {
   }
 }
 """.data(using: .utf8)!
-        let result = try! JSONDecoder().decode([String: TaskData].self, from: data)
+        let result = try! JSONDecoder().decode([String: TaskInList].self, from: data)
         let taskList = TaskList(data: result)
         XCTAssertEqual("alanisawesome", taskList.tasks[0].id)
         XCTAssertEqual("-LdvCzhfENNENh17ARpt", taskList.tasks[1].id)
@@ -60,7 +60,7 @@ class JSONDecodeTest: XCTestCase {
 null
 """.data(using: .utf8)!
         do {
-            let result = try TaskData.jsonDecode(data: data)
+            let result = try TaskInList.jsonDecode(data: data)
             XCTAssertNil(result)
         } catch {
             XCTFail("\(error)")

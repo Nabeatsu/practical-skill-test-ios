@@ -8,6 +8,8 @@
 
 import Foundation
 
-typealias GetAPIResponse = Either<Either<ConnectionError, TransformError>, [String: TaskData]?>
+typealias GetAPIResponse = Either<Either<ConnectionError, TransformError>, [String: TaskInList]?>
 
 typealias PostAPIResponse = Either<Either<ConnectionError, TransformError>, TaskId>
+
+typealias PatchAPIResponse = Either<Either<ConnectionError, TransformError>, UpdatedTask>

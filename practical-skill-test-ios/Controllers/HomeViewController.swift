@@ -29,14 +29,28 @@ class HomeViewController: UIViewController {
         loadTasks()
     }
 
-    func createTask(title: String, description: String) {
+    private func getErrorCompletion(title: String) -> (String) -> Void {
         let showError: (String) -> Void = { [weak self] errorMessage in
             guard let weakSelf = self else { return }
-            let alert = UIAlertController(title: "タスク作成失敗", message: "\(errorMessage)", preferredStyle: .alert)
+            let alert = UIAlertController(title: title, message: "\(errorMessage)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
             weakSelf.present(alert, animated: true, completion: nil)
         }
+        return showError
+    }
 
+    private func loadTasks() {
+        let completionHandler: ([String: TaskInList]?) -> Void = { [weak self] result in
+            guard let weakSelf = self else { return }
+            weakSelf.dataSource.taskList = TaskList(data: result)
+            DispatchQueue.main.async {
+                weakSelf.tableView.reloadData()
+            }
+        }
+        dataSource.loadTasks(completionHandler, getErrorCompletion(title: "cannnot create task"))
+    }
+
+    private func createTask(title: String, description: String) {
         let completionHandler: (TaskList.Task) -> Void = { [weak self] task in
             guard let weakSelf = self else { return }
             DispatchQueue.main.async {
@@ -54,26 +68,21 @@ class HomeViewController: UIViewController {
             title: title,
             description: description,
             completionHandler: completionHandler,
-            errorCompletion: showError
+            errorCompletion: getErrorCompletion(title: "cannnot load the tasklist")
         )
     }
 
-    private func loadTasks() {
-        let showError: (String) -> Void = { [weak self] errorMessage in
+    private func updateTask(index: Int, id: String, title: String?, description: String?) {
+        let completionHandler: (UpdatedTask) -> Void = { [weak self] result in
             guard let weakSelf = self else { return }
-            let alert = UIAlertController(title: "ロード失敗", message: "\(errorMessage)", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
-            weakSelf.present(alert, animated: true, completion: nil)
-        }
-
-        let completionHandler: ([String: TaskData]?) -> Void = { [weak self] result in
-            guard let weakSelf = self else { return }
-            weakSelf.dataSource.taskList = TaskList(data: result)
+            weakSelf.dataSource.taskList?.change(of: id, to: result)
+            let indexPath = IndexPath(row: index, section: 0)
             DispatchQueue.main.async {
-                weakSelf.tableView.reloadData()
+                weakSelf.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
         }
-        dataSource.loadTasks(completionHandler, showError)
+
+        dataSource.updateTask(id: id, title: title, description: description, completionHandler: completionHandler, errorCompletion: getErrorCompletion(title: "cannot update task"))
     }
 }
 
@@ -87,6 +96,11 @@ extension HomeViewController: UITextViewDelegate {
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         // ここで追加
         guard let text = textView.text, text != "" else { return true }
+        if let index = (textView.superview?.superview as? TaskCell)?.index {
+            guard let id = dataSource.taskList?.tasks[index].id else { return true }
+            updateTask(index: index, id: id, title: textView.text, description: nil)
+            return true
+        }
         textView.text = ""
         createTask(title: text, description: "")
 

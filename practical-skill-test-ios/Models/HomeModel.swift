@@ -14,7 +14,7 @@ class HomeModel: NSObject {
     var firebaseDBClient = FirebaseDBClient()
     weak var textViewDelegate: UITextViewDelegate?
 
-    func loadTasks(_ completionHandler: @escaping ([String: TaskData]?) -> Void, _ errorCompletion: @escaping (String) -> Void) {
+    func loadTasks(_ completionHandler: @escaping ([String: TaskInList]?) -> Void, _ errorCompletion: @escaping (String) -> Void) {
         firebaseDBClient.get {errorOrResult in
             switch errorOrResult {
             case let .left(error):
@@ -38,17 +38,32 @@ class HomeModel: NSObject {
             case let .left(error):
                 switch error {
                 case let .left(connectionError):
-                    fatalError("connectionError: \(connectionError)")
                     errorCompletion("connectionError: \(connectionError)")
                 case let .right(transformError):
                     errorCompletion("transformError: \(transformError)")
                 }
             case let .right(result):
+                guard let timeStamp = weakSelf.firebaseDBClient.timeStamp else { return }
+                let task = TaskList.Task(id: result.name, title: title, description: description, createdAt: timeStamp, updatedAt: timeStamp)
                 DispatchQueue.main.async {
-                    guard let timeStamp = weakSelf.firebaseDBClient.timeStamp else { return }
-                    let task = TaskList.Task(id: result.name, title: title, description: description, createdAt: timeStamp, updatedAt: timeStamp)
                     completionHandler(task)
                 }
+            }
+        }
+    }
+
+    func updateTask(id: String, title: String?, description: String?, completionHandler: @escaping(UpdatedTask) -> Void, errorCompletion: @escaping (String) -> Void) {
+        firebaseDBClient.patch(id: id, title: title, description: description) { errorOrResult in
+            switch errorOrResult {
+            case let .left(error):
+                switch error {
+                case let .left(connectionError):
+                    errorCompletion("connectionError: \(connectionError)")
+                case let .right(transformError):
+                    errorCompletion("transformError: \(transformError)")
+                }
+            case let .right(result):
+                completionHandler(result)
             }
         }
     }
@@ -73,6 +88,7 @@ extension HomeModel: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.nibName, for: indexPath) as! TaskCell
             cell.index = indexPath.row
             cell.dataSource = self
+            cell.textViewDelegate = textViewDelegate
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: FormCell.nibName, for: indexPath) as! FormCell

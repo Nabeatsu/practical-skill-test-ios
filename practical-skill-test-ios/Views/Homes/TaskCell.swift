@@ -15,6 +15,12 @@ class TaskCell: UITableViewCell, InstantiatableFromNib {
 
     }
     var index: Int!
+    var textViewDelegate: UITextViewDelegate? {
+        didSet {
+            guard let textViewDelegate = textViewDelegate else { return }
+            taskNameView.delegate = textViewDelegate
+        }
+    }
     weak var dataSource: TaskCellDataSource? {
         didSet {
             setLayout()
@@ -43,4 +49,6 @@ class TaskCell: UITableViewCell, InstantiatableFromNib {
 protocol TaskCellDataSource: AnyObject {
     var taskList: TaskList? { get set }
 }
-protocol TaskCellDelegate: AnyObject {}
+protocol TaskCellDelegate: AnyObject {
+
+}

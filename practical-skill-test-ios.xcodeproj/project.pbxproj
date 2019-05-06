@@ -15,7 +15,7 @@
 		556AAEE9227AA4700066CBCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 556AAEE7227AA4700066CBCD /* GoogleService-Info.plist */; };
 		556AAEEA227AA4700066CBCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 556AAEE7227AA4700066CBCD /* GoogleService-Info.plist */; };
 		556AAEEC227C0C6B0066CBCD /* JSONDecodeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEEB227C0C6B0066CBCD /* JSONDecodeTest.swift */; };
-		556AAEEE227C0D300066CBCD /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEED227C0D300066CBCD /* TaskData.swift */; };
+		556AAEEE227C0D300066CBCD /* TaskInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEED227C0D300066CBCD /* TaskInList.swift */; };
 		556AAEF0227C154D0066CBCD /* TaskId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEEF227C154D0066CBCD /* TaskId.swift */; };
 		556AAEF3227CFD7F0066CBCD /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEF2227CFD7F0066CBCD /* Date+extension.swift */; };
 		556AAEF5227D01520066CBCD /* ExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEF4227D01520066CBCD /* ExtensionTest.swift */; };
@@ -23,6 +23,7 @@
 		556AAEFB227DF79F0066CBCD /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEF9227DF79F0066CBCD /* TaskCell.swift */; };
 		556AAEFC227DF79F0066CBCD /* TaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 556AAEFA227DF79F0066CBCD /* TaskCell.xib */; };
 		556AAF00227DFCD50066CBCD /* InstantiatableFromNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEFF227DFCD50066CBCD /* InstantiatableFromNib.swift */; };
+		5573B66D2280873D0082523D /* UpdatedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573B66C2280873D0082523D /* UpdatedTask.swift */; };
 		55B9AB442278EB0900C38266 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9AB432278EB0900C38266 /* AppDelegate.swift */; };
 		55B9AB462278EB0900C38266 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9AB452278EB0900C38266 /* RegisterViewController.swift */; };
 		55B9AB492278EB0900C38266 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55B9AB472278EB0900C38266 /* Main.storyboard */; };
@@ -64,7 +65,7 @@
 		556AAEE1227A7E700066CBCD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		556AAEE7227AA4700066CBCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		556AAEEB227C0C6B0066CBCD /* JSONDecodeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecodeTest.swift; sourceTree = "<group>"; };
-		556AAEED227C0D300066CBCD /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
+		556AAEED227C0D300066CBCD /* TaskInList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInList.swift; sourceTree = "<group>"; };
 		556AAEEF227C154D0066CBCD /* TaskId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskId.swift; sourceTree = "<group>"; };
 		556AAEF2227CFD7F0066CBCD /* Date+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extension.swift"; sourceTree = "<group>"; };
 		556AAEF4227D01520066CBCD /* ExtensionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTest.swift; sourceTree = "<group>"; };
@@ -72,6 +73,7 @@
 		556AAEF9227DF79F0066CBCD /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		556AAEFA227DF79F0066CBCD /* TaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCell.xib; sourceTree = "<group>"; };
 		556AAEFF227DFCD50066CBCD /* InstantiatableFromNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantiatableFromNib.swift; sourceTree = "<group>"; };
+		5573B66C2280873D0082523D /* UpdatedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatedTask.swift; sourceTree = "<group>"; };
 		55B9AB402278EB0900C38266 /* practical-skill-test-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "practical-skill-test-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55B9AB432278EB0900C38266 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55B9AB452278EB0900C38266 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -142,9 +144,10 @@
 			isa = PBXGroup;
 			children = (
 				55C1E5EF227F92CA000A61EE /* FirebaseDBClient.swift */,
-				556AAEED227C0D300066CBCD /* TaskData.swift */,
+				556AAEED227C0D300066CBCD /* TaskInList.swift */,
 				556AAEEF227C154D0066CBCD /* TaskId.swift */,
 				55C1E5ED227F923E000A61EE /* ResponseList.swift */,
+				5573B66C2280873D0082523D /* UpdatedTask.swift */,
 			);
 			path = FirebaseRealtimeDatabase;
 			sourceTree = "<group>";
@@ -616,8 +619,9 @@
 				556AAEF0227C154D0066CBCD /* TaskId.swift in Sources */,
 				55B9AB742278ECA400C38266 /* AuthClient.swift in Sources */,
 				55B9AB762278ECC200C38266 /* AuthDelegate.swift in Sources */,
+				5573B66D2280873D0082523D /* UpdatedTask.swift in Sources */,
 				556AAEFB227DF79F0066CBCD /* TaskCell.swift in Sources */,
-				556AAEEE227C0D300066CBCD /* TaskData.swift in Sources */,
+				556AAEEE227C0D300066CBCD /* TaskInList.swift in Sources */,
 				55B9AB442278EB0900C38266 /* AppDelegate.swift in Sources */,
 				55C1E5F0227F92CA000A61EE /* FirebaseDBClient.swift in Sources */,
 				556AAF00227DFCD50066CBCD /* InstantiatableFromNib.swift in Sources */,

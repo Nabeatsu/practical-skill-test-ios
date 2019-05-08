@@ -68,8 +68,8 @@ struct TaskList {
         var updatedAt: String
     }
 
-    /// TaskのorderはFirabase Realtime Datebaseの仕様上順番が保証されない。
-    /// そのためupdateAtをDateに変換してsort
+    /// TaskのorderはFirabase Realtime DatebaseのJSONの仕様上順番が保証されない。
+    /// そのためcreatedAtをDateに変換してsort
     init(data: [String: TaskInList]?) {
         guard let data = data else {
             tasks = []
@@ -79,5 +79,4 @@ struct TaskList {
         let formatter = DateFormatter()
         tasks = tasks.sorted(by: {formatter.dateByDefaultLocale(from: $0.createdAt)! < formatter.dateByDefaultLocale(from: $1.createdAt)!})
     }
-
 }

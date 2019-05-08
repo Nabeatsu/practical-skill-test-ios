@@ -80,7 +80,6 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.async {
                 weakSelf.tableView.deleteRows(at: [indexPath], with: .automatic)
             }
-
         }
 
         dataSource.deleteTask(id: id, completionHandler: completionHandler, errorCompletion: getErrorCompletion(title: "cannnot delete the task"))
@@ -127,12 +126,12 @@ extension HomeViewController: UITextFieldDelegate {
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = textField.text, text != "" else {
+        guard let text = textField.text, text.trimmingCharacters(in: .whitespaces) != "" else {
             textField.resignFirstResponder()
+            textField.text = nil
             return true
         }
-
-        textField.text = ""
+        textField.text = nil
         createTask(title: text, description: "")
         textField.resignFirstResponder()
         return true
@@ -156,7 +155,8 @@ extension HomeViewController: UITableViewDelegate {
         let detailAction = UIContextualAction(style: .normal, title: "変更") { [weak self] (_, _, success) in
             guard let weakSelf = self,
                 let storyboard = weakSelf.storyboard else { return }
-            let nextVC = storyboard.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
+            let vcName: VCList = .detail
+            let nextVC = storyboard.instantiateViewController(withIdentifier: vcName.rawValue) as! DetailViewController
             nextVC.dataSource.task = weakSelf.dataSource.taskList?.tasks[indexPath.row]
             nextVC.delegate = self
             weakSelf.present(nextVC, animated: true)

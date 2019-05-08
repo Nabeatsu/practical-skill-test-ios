@@ -48,7 +48,8 @@ extension RegisterViewController: AuthDelegate {
     func signUpCompletion() {
         indicatorView.stopAnimating()
         guard let storyboard = storyboard else { return }
-        let nextVC = storyboard.instantiateViewController(withIdentifier: "Home")
+        let vcName: VCList = .home
+        let nextVC = storyboard.instantiateViewController(withIdentifier: vcName.rawValue)
         present(nextVC, animated: true, completion: nil)
     }
 }

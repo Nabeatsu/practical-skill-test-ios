@@ -50,19 +50,23 @@ extension AuthDelegate where Self: UIViewController {
 
     func signUpCompletion() {
         guard let storyboard = storyboard else { return }
-        let nextVC = storyboard.instantiateViewController(withIdentifier: "Home")
+        let vcName: VCList = .home
+        let nextVC = storyboard.instantiateViewController(withIdentifier: vcName.rawValue)
         present(nextVC, animated: true, completion: nil)
     }
 
     func signInCompletion() {
-        guard let storyboard = storyboard else { return }
-        let nextVC = storyboard.instantiateViewController(withIdentifier: "Home")
-        present(nextVC, animated: true, completion: nil)
+        fatalError("this method has not been implemented")
+        // guard let storyboard = storyboard else { return }
+        // let vcName: VCList = .home
+        // let nextVC = storyboard.instantiateViewController(withIdentifier: vcName.rawValue)
+        // present(nextVC, animated: true, completion: nil)
     }
 
     func signOutCompletion() {
-        guard let storyboard = storyboard else { return }
-        let nextVC = storyboard.instantiateViewController(withIdentifier: "まだ決めてない")
-        present(nextVC, animated: true, completion: nil)
+        fatalError("this method has not been implemented")
+        // guard let storyboard = storyboard else { return }
+        // let nextVC = storyboard.instantiateViewController(withIdentifier: "まだ決めてない")
+        // present(nextVC, animated: true, completion: nil)
     }
 }

@@ -7,3 +7,14 @@
 //
 
 import Foundation
+enum VCList: String {
+    case home = "Home"
+    case detail = "Detail"
+
+    func getStoryBoardName() -> String {
+        switch self {
+        default:
+            return "Main"
+        }
+    }
+}

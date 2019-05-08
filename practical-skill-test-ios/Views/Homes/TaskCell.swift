@@ -9,7 +9,7 @@
 import UIKit
 
 class TaskCell: UITableViewCell, InstantiatableFromNib {
-    @IBOutlet private weak var taskNameView: UITextView!
+    @IBOutlet private weak var taskNameLabel: UILabel!
     var task: TaskList.Task? {
         didSet {
             guard let task = task else { return }
@@ -20,13 +20,14 @@ class TaskCell: UITableViewCell, InstantiatableFromNib {
     private func setLayout(_ task: TaskList.Task) {
         DispatchQueue.main.async { [weak self] in
             guard let weakSelf = self else { return }
-            weakSelf.taskNameView.text = task.title
+            weakSelf.taskNameLabel.text = task.title
         }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

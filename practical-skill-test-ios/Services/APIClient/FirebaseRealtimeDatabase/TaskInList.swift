@@ -41,7 +41,6 @@ struct TaskInList: Codable, APIClientProtocol {
 
 struct TaskList {
     var tasks: [Task]
-    /// - TODO: 適切な書き方に。何も考えずにforced upwrappingしてる
     mutating func change(of taskId: String, to task: UpdatedTask) -> Int {
         let index = tasks.map { $0.id }.firstIndex(of: taskId)!
         let updatedTask = Task(
@@ -71,7 +70,6 @@ struct TaskList {
 
     /// TaskのorderはFirabase Realtime Datebaseの仕様上順番が保証されない。
     /// そのためupdateAtをDateに変換してsort
-    /// - TODO: ソートの際にforced unwrappingしているので適切にエラー処理
     init(data: [String: TaskInList]?) {
         guard let data = data else {
             tasks = []

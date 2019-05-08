@@ -12,7 +12,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak internal var tableView: UITableView! {
         didSet {
             tableView.delegate = self
-            tableView.estimatedRowHeight = 100
+            tableView.estimatedRowHeight = 1000
             tableView.rowHeight = UITableView.automaticDimension
             tableView.dataSource = dataSource
             tableView.register(UINib(nibName: TaskCell.nibName, bundle: nil), forCellReuseIdentifier: TaskCell.nibName)

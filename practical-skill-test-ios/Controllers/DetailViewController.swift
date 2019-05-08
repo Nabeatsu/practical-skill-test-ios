@@ -9,21 +9,27 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    @IBOutlet weak private var nameTextView: UITextView!
+    @IBOutlet weak private var scrollView: UIScrollView!
+    @IBOutlet weak private var titleLabel: UILabel!
+
     @IBOutlet weak private var descriptionTextView: UITextView!
     var editingView: UITextView?
     var dataSource = DetailModel()
     weak var delegate: HomeAndDetailSyncDelegate?
+    var lastOffset: CGPoint?
+    var overlap: CGFloat = 0.0
+    var moveYC: CGFloat = 0.0
+    var lastOffsetY: CGFloat = 0.0
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameTextView.delegate = self
         descriptionTextView.delegate = self
         setLayout()
         // Do any additional setup after loading the view.
     }
 
     func setLayout() {
-        nameTextView.text = dataSource.task.title
+        titleLabel.text = dataSource.task.title
         descriptionTextView.text = dataSource.task.description
     }
     @IBAction func tappedCloseButton(_ sender: Any) {
@@ -67,8 +73,30 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: UITextViewDelegate {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let notification = NotificationCenter.default
+        notification.addObserver(self, selector: #selector(self.keyboardChangeFrame(_:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
+        notification.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        notification.addObserver(self, selector: #selector(self.keyboardDidHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardChangeFrame(_ notification: Notification) {
+    }
+
+    @objc func keyboardWillShow(_ notification: Notification) {
+    }
+
+    @objc func keyboardDidHide(_ notification: Notification) {
+    }
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         editingView = textView
+    }
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        editingView = textView
+        lastOffset = scrollView.contentOffset
+        return true
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -77,7 +105,7 @@ extension DetailViewController: UITextViewDelegate {
 
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         guard let text = textView.text, text != "" else { return true }
-        updateTask(id: dataSource.task.id, title: nameTextView.text, description: descriptionTextView.text)
+        updateTask(id: dataSource.task.id, title: titleLabel.text, description: descriptionTextView.text)
         return true
     }
 

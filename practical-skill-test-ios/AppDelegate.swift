@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         if AuthClient.isSignedIn {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let initialViewCOntroller = storyboard.instantiateViewController(withIdentifier: "Home")
-            self.window?.rootViewController = initialViewCOntroller
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "Home")
+            self.window?.rootViewController = initialViewController
             DispatchQueue.main.async {
                 self.window?.makeKeyAndVisible()
             }

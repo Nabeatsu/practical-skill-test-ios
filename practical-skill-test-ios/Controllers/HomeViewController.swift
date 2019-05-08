@@ -117,6 +117,23 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITextViewDelegate {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let notification = NotificationCenter.default
+        notification.addObserver(self, selector: #selector(self.keyboardChangeFrame(_:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
+        notification.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        notification.addObserver(self, selector: #selector(self.keyboardDidHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardChangeFrame(_ notification: Notification) {
+    }
+
+    @objc func keyboardWillShow(_ notification: Notification) {
+    }
+
+    @objc func keyboardDidHide(_ notification: Notification) {
+    }
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         editingView = textView
     }
@@ -162,6 +179,9 @@ extension HomeViewController: UITableViewDelegate {
         }
         closeAction.backgroundColor = .blue
         return UISwipeActionsConfiguration(actions: [closeAction])
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        editingView?.resignFirstResponder()
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

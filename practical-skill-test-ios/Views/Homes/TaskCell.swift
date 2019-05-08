@@ -10,13 +10,6 @@ import UIKit
 
 class TaskCell: UITableViewCell, InstantiatableFromNib {
     @IBOutlet private weak var taskNameView: UITextView!
-    var textViewDelegate: UITextViewDelegate? {
-        didSet {
-            guard let textViewDelegate = textViewDelegate else { return }
-            taskNameView.delegate = textViewDelegate
-        }
-    }
-
     var task: TaskList.Task? {
         didSet {
             guard let task = task else { return }
@@ -39,6 +32,11 @@ class TaskCell: UITableViewCell, InstantiatableFromNib {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
     }
 }
 

@@ -9,11 +9,12 @@
 import UIKit
 
 class FormCell: UITableViewCell, InstantiatableFromNib {
-    @IBOutlet weak private var formTextView: UITextView!
-    weak var textViewDelegate: UITextViewDelegate? {
+    @IBOutlet private weak var formTextfield: UITextField!
+
+    weak var textFieldDelegate: UITextFieldDelegate? {
         didSet {
-            guard let textViewDelegate = textViewDelegate else { return }
-            formTextView.delegate = textViewDelegate
+            guard let textFieldDelegate = textFieldDelegate else { return }
+            formTextfield.delegate = textFieldDelegate
         }
     }
     override func awakeFromNib() {

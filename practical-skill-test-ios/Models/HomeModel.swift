@@ -12,7 +12,7 @@ import UIKit
 class HomeModel: NSObject, TaskManagible {
     var taskList: TaskList?
     var firebaseDBClient = FirebaseDBClient()
-    weak var textViewDelegate: UITextViewDelegate?
+    weak var textFieldDelegate: UITextFieldDelegate?
 }
 
 extension HomeModel: UITableViewDataSource {
@@ -31,14 +31,24 @@ extension HomeModel: UITableViewDataSource {
             guard let taskList = taskList, !taskList.tasks.isEmpty else { return UITableViewCell() }
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.nibName, for: indexPath) as! TaskCell
             cell.task = taskList.tasks[indexPath.row]
-            cell.textViewDelegate = textViewDelegate
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: FormCell.nibName, for: indexPath) as! FormCell
-            cell.textViewDelegate = textViewDelegate
+            cell.textFieldDelegate = textFieldDelegate
+
             return cell
         default:
             return UITableViewCell()
         }
+    }
+
+}
+
+extension String {
+    func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesFontLeading, .usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font: font], context: nil)
+
+        return boundingBox.height
     }
 }

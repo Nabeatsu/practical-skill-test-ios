@@ -20,29 +20,13 @@ class HomeViewController: UIViewController {
         }
     }
 
-    var editingView: UITextView?
+    var editingField: UITextField?
     var dataSource = HomeModel()
     let authClient = AuthClient()
-    var refreshControl: UIRefreshControl!
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshControl = UIRefreshControl()
-        refreshControl.attributedTitle = NSAttributedString(string: "再読込")
-        refreshControl.addTarget(self, action: #selector(HomeViewController.refresh), for: .valueChanged)
-        tableView.refreshControl = refreshControl
-
-        dataSource.textViewDelegate = self
+        dataSource.textFieldDelegate = self
         loadTasks()
-    }
-
-    @objc func refresh() {
-        dataSource.taskList = nil
-        refreshControl.beginRefreshing()
-        self.loadTasks()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-        refreshControl.endRefreshing()
     }
 
     private func getErrorCompletion(title: String) -> (String) -> Void {
@@ -70,7 +54,7 @@ class HomeViewController: UIViewController {
         let completionHandler: (TaskList.Task) -> Void = { [weak self] task in
             guard let weakSelf = self else { return }
             DispatchQueue.main.async {
-                weakSelf.editingView?.text = ""
+                weakSelf.editingField?.text = ""
                 weakSelf.tableView.beginUpdates()
                 let latRowIndex = weakSelf.tableView.numberOfRows(inSection: 0)
                 let indexPath = IndexPath(row: latRowIndex, section: 0)
@@ -116,57 +100,44 @@ class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: UITextViewDelegate {
+extension HomeViewController: UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         let notification = NotificationCenter.default
-        notification.addObserver(self, selector: #selector(self.keyboardChangeFrame(_:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
-        notification.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        notification.addObserver(self, selector: #selector(self.keyboardDidHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    @objc func keyboardChangeFrame(_ notification: Notification) {
+        notification.addObserver(self, selector: #selector(HomeViewController.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        notification.addObserver(self, selector: #selector(HomeViewController.keyboardDidHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     @objc func keyboardWillShow(_ notification: Notification) {
+        guard let keyboard = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboard.height, right: 0)
+        let indexPath = IndexPath(row: 0, section: 1)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
     @objc func keyboardDidHide(_ notification: Notification) {
+        tableView.contentInset = UIEdgeInsets.zero
     }
 
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        editingView = textView
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        editingField = textField
     }
-    func textViewDidEndEditing(_ textView: UITextView) {
-        editingView = nil
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        editingField = nil
     }
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        guard let text = textView.text, text != "" else { return true }
-        if let id = (textView.superview?.superview as? TaskCell)?.task?.id {
-            updateTask(id: id, title: textView.text, description: nil)
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = textField.text, text != "" else {
+            textField.resignFirstResponder()
             return true
         }
-        textView.text = ""
+
+        textField.text = ""
         createTask(title: text, description: "")
-
+        textField.resignFirstResponder()
         return true
     }
 
-    func textViewDidChange(_ textView: UITextView) {
-        UIView.setAnimationsEnabled(false)
-        textView.sizeToFit()
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-        UIView.setAnimationsEnabled(true)
-    }
-
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            textView.resignFirstResponder()
-            return false
-        }
-        return true
-    }
 }
 
 extension HomeViewController: UITableViewDelegate {
@@ -180,12 +151,9 @@ extension HomeViewController: UITableViewDelegate {
         closeAction.backgroundColor = .blue
         return UISwipeActionsConfiguration(actions: [closeAction])
     }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        editingView?.resignFirstResponder()
-    }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let detailAction = UIContextualAction(style: .normal, title: "詳細") { [weak self] (_, _, success) in
+        let detailAction = UIContextualAction(style: .normal, title: "変更") { [weak self] (_, _, success) in
             guard let weakSelf = self,
                 let storyboard = weakSelf.storyboard else { return }
             let nextVC = storyboard.instantiateViewController(withIdentifier: "Detail") as! DetailViewController

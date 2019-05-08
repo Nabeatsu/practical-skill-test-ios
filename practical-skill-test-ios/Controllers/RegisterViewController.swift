@@ -11,41 +11,44 @@ import Foundation
 import FirebaseAuth
 
 class RegisterViewController: UIViewController {
-    @IBOutlet private weak var nameTextField: UITextField!
-    @IBOutlet private weak var emailTextField: UITextField!
-    @IBOutlet private weak var passwordTextField: UITextField!
-    let authClient = AuthClient()
-    var editingField: UITextField?
-    @IBAction private func didTapSignUpButton() {
-        let email = emailTextField.text ?? ""
-        let password = passwordTextField.text ?? ""
-        let name = nameTextField.text ?? ""
-        authClient.signUp(email: email, password: password, name: name)
-
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView! {
+        didSet {
+            indicatorView.hidesWhenStopped = true
+            indicatorView.style = .gray
+        }
     }
+    func randomString(length: Int) -> String {
+        let letters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = UInt32(letters.length)
+        var randomString = ""
+        for _ in 0 ..< length {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            randomString += NSString(characters: &nextChar, length: 1) as String
+        }
+        return randomString
+    }
+
+    let authClient = AuthClient()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         authClient.delegate = self
-        nameTextField.delegate = self
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
+        indicatorView.startAnimating()
+        let email = "\(randomString(length: 15))@gmail.com"
+        let password = "14781478"
+        let name = "hoge"
+        authClient.signUp(email: email, password: password, name: name)
     }
 
 }
 
-extension RegisterViewController: AuthDelegate {}
-extension RegisterViewController: UITextFieldDelegate {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        editingField = textField
-        return true
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let editingField = editingField else { return true }
-        editingField.resignFirstResponder()
-        return true
-
+extension RegisterViewController: AuthDelegate {
+    func signUpCompletion() {
+        indicatorView.stopAnimating()
+        guard let storyboard = storyboard else { return }
+        let nextVC = storyboard.instantiateViewController(withIdentifier: "Home")
+        present(nextVC, animated: true, completion: nil)
     }
 }

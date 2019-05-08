@@ -14,6 +14,7 @@ class HomeModel: NSObject {
     var firebaseDBClient = FirebaseDBClient()
     weak var textViewDelegate: UITextViewDelegate?
 
+    /// - TODO: この部分も切り出せる. protocolに
     func loadTasks(_ completionHandler: @escaping ([String: TaskInList]?) -> Void, _ errorCompletion: @escaping (String) -> Void) {
         firebaseDBClient.get {errorOrResult in
             switch errorOrResult {
@@ -67,9 +68,38 @@ class HomeModel: NSObject {
             }
         }
     }
-}
 
-extension HomeModel: TaskCellDataSource {}
+    func deleteTask(id: String, completionHandler: @escaping(Int) -> Void, errorCompletion: @escaping (String) -> Void) {
+        firebaseDBClient.delete(id: id) { [weak self] errorOrResult in
+            guard let weakSelf = self else { return }
+            switch errorOrResult {
+            case let .left(error):
+                switch error {
+                case let .left(connectionError):
+                    errorCompletion("connectionError: \(connectionError)")
+                case let .right(transformError):
+                    switch transformError {
+                    case .noContent:
+
+                        errorCompletion("想定していないエラー no content)")
+                    case .malformedData(let debugInfo):
+                        errorCompletion("想定していないエラー debugInfo: \(debugInfo)")
+                    case .unexpectedStatusCode(let debugInfo):
+                        errorCompletion("想定していないエラー。debugInfo: \(debugInfo)")
+                    }
+
+                }
+            case let .right(result):
+                if let result = result {
+                    errorCompletion("不明なレスポンス\(String(describing: result))")
+                    return
+                }
+                guard let index = weakSelf.taskList?.delete(of: id) else { return }
+                completionHandler(index)
+            }
+        }
+    }
+}
 
 extension HomeModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -86,8 +116,7 @@ extension HomeModel: UITableViewDataSource {
         case 0:
             guard let taskList = taskList, !taskList.tasks.isEmpty else { return UITableViewCell() }
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.nibName, for: indexPath) as! TaskCell
-            cell.index = indexPath.row
-            cell.dataSource = self
+            cell.task = taskList.tasks[indexPath.row]
             cell.textViewDelegate = textViewDelegate
             return cell
         case 1:

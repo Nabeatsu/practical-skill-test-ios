@@ -10,28 +10,24 @@ import UIKit
 
 class TaskCell: UITableViewCell, InstantiatableFromNib {
     @IBOutlet private weak var taskNameView: UITextView!
-    @IBOutlet private weak var taskDetailButton: UIButton!
-    @IBAction private func tappedTaskDetailButton(_ sender: UIButton) {
-
-    }
-    var index: Int!
     var textViewDelegate: UITextViewDelegate? {
         didSet {
             guard let textViewDelegate = textViewDelegate else { return }
             taskNameView.delegate = textViewDelegate
         }
     }
-    weak var dataSource: TaskCellDataSource? {
+
+    var task: TaskList.Task? {
         didSet {
-            setLayout()
+            guard let task = task else { return }
+            setLayout(task)
         }
     }
 
-    private func setLayout() {
-        guard let taskList = dataSource?.taskList else { return }
+    private func setLayout(_ task: TaskList.Task) {
         DispatchQueue.main.async { [weak self] in
             guard let weakSelf = self else { return }
-            weakSelf.taskNameView.text = taskList.tasks[weakSelf.index].title
+            weakSelf.taskNameView.text = task.title
         }
     }
 
@@ -46,9 +42,6 @@ class TaskCell: UITableViewCell, InstantiatableFromNib {
     }
 }
 
-protocol TaskCellDataSource: AnyObject {
-    var taskList: TaskList? { get set }
-}
 protocol TaskCellDelegate: AnyObject {
 
 }

@@ -52,8 +52,12 @@ class FirebaseDBClient {
         }
     }
 
-    /// - TODO: 未実装
-    func delete(data: Data?, completion: @escaping(GetAPIResponse) -> Void) {
-
+    func delete(id: String, completion: @escaping(DeleteAPIResponse) -> Void) {
+        guard let uid = AuthClient.currentUser?.uid else { fatalError("cannnot get uid: Logic Failure") }
+        DeleteTask.fetch(
+            method: .delete(payload: nil),
+            apiPath: "https://practical-skill-test-ios.firebaseio.com/tasks/\(uid)/\(id).json") { errorOrResult in
+                completion(errorOrResult)
+        }
     }
 }

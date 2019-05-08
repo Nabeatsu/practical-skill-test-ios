@@ -13,3 +13,5 @@ typealias GetAPIResponse = Either<Either<ConnectionError, TransformError>, [Stri
 typealias PostAPIResponse = Either<Either<ConnectionError, TransformError>, TaskId>
 
 typealias PatchAPIResponse = Either<Either<ConnectionError, TransformError>, UpdatedTask>
+
+typealias DeleteAPIResponse = Either<Either<ConnectionError, TransformError>, DeleteTask?>

@@ -24,6 +24,7 @@
 		556AAEFC227DF79F0066CBCD /* TaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 556AAEFA227DF79F0066CBCD /* TaskCell.xib */; };
 		556AAF00227DFCD50066CBCD /* InstantiatableFromNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEFF227DFCD50066CBCD /* InstantiatableFromNib.swift */; };
 		5573B66D2280873D0082523D /* UpdatedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573B66C2280873D0082523D /* UpdatedTask.swift */; };
+		5573B66F228241F70082523D /* DeleteTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573B66E228241F70082523D /* DeleteTask.swift */; };
 		55B9AB442278EB0900C38266 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9AB432278EB0900C38266 /* AppDelegate.swift */; };
 		55B9AB462278EB0900C38266 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9AB452278EB0900C38266 /* RegisterViewController.swift */; };
 		55B9AB492278EB0900C38266 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55B9AB472278EB0900C38266 /* Main.storyboard */; };
@@ -74,6 +75,7 @@
 		556AAEFA227DF79F0066CBCD /* TaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCell.xib; sourceTree = "<group>"; };
 		556AAEFF227DFCD50066CBCD /* InstantiatableFromNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantiatableFromNib.swift; sourceTree = "<group>"; };
 		5573B66C2280873D0082523D /* UpdatedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatedTask.swift; sourceTree = "<group>"; };
+		5573B66E228241F70082523D /* DeleteTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTask.swift; sourceTree = "<group>"; };
 		55B9AB402278EB0900C38266 /* practical-skill-test-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "practical-skill-test-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55B9AB432278EB0900C38266 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55B9AB452278EB0900C38266 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				556AAEEF227C154D0066CBCD /* TaskId.swift */,
 				55C1E5ED227F923E000A61EE /* ResponseList.swift */,
 				5573B66C2280873D0082523D /* UpdatedTask.swift */,
+				5573B66E228241F70082523D /* DeleteTask.swift */,
 			);
 			path = FirebaseRealtimeDatabase;
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 				55C1E5F0227F92CA000A61EE /* FirebaseDBClient.swift in Sources */,
 				556AAF00227DFCD50066CBCD /* InstantiatableFromNib.swift in Sources */,
 				55C1E5F7227FE388000A61EE /* FormCell.swift in Sources */,
+				5573B66F228241F70082523D /* DeleteTask.swift in Sources */,
 				556AAEE2227A7E700066CBCD /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -41,8 +41,8 @@ struct TaskInList: Codable, APIClientProtocol {
 
 struct TaskList {
     var tasks: [Task]
-    /// - TODO: 適切な書き方に
-    mutating func change(of taskId: String, to task: UpdatedTask) {
+    /// - TODO: 適切な書き方に。何も考えずにforced upwrappingしてる
+    mutating func change(of taskId: String, to task: UpdatedTask) -> Int {
         let index = tasks.map { $0.id }.firstIndex(of: taskId)!
         let updatedTask = Task(
             id: tasks[index].id,
@@ -52,7 +52,15 @@ struct TaskList {
             updatedAt: task.updatedAt
         )
         tasks[index] = updatedTask
+        return index
     }
+
+    mutating func delete(of taskID: String) -> Int {
+        let index = tasks.map { $0.id }.firstIndex(of: taskID)!
+        tasks.remove(at: index)
+        return index
+    }
+
     struct Task: Equatable {
         var id: String
         var title: String
@@ -69,7 +77,7 @@ struct TaskList {
             tasks = []
             return
         }
-        tasks = data.map { Task(id: $0.key, title: $0.value.title, description: $0.value.description, createdAt: $0.value.createdAt, updatedAt: $0.value.updatedAt)}
+        tasks = data.map { Task(id: $0.key, title: $0.value.title, description: $0.value.description, createdAt: $0.value.createdAt, updatedAt: $0.value.updatedAt) }
         let formatter = DateFormatter()
         tasks = tasks.sorted(by: {formatter.dateByDefaultLocale(from: $0.createdAt)! < formatter.dateByDefaultLocale(from: $1.createdAt)!})
     }

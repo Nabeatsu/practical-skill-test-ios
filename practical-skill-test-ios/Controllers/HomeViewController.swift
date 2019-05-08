@@ -47,7 +47,7 @@ class HomeViewController: UIViewController {
                 weakSelf.tableView.reloadData()
             }
         }
-        dataSource.loadTasks(completionHandler, getErrorCompletion(title: "cannnot create task"))
+        dataSource.loadTasks(completionHandler, getErrorCompletion(title: "cannnot create the task"))
     }
 
     private func createTask(title: String, description: String) {
@@ -72,17 +72,30 @@ class HomeViewController: UIViewController {
         )
     }
 
-    private func updateTask(index: Int, id: String, title: String?, description: String?) {
+    private func deleteTask(id: String) {
+        let completionHandler: (Int) -> Void = { [weak self] index in
+            guard let weakSelf = self else { return }
+            let indexPath = IndexPath(row: index, section: 0)
+            DispatchQueue.main.async {
+                weakSelf.tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+
+        }
+
+        dataSource.deleteTask(id: id, completionHandler: completionHandler, errorCompletion: getErrorCompletion(title: "cannnot delete the task"))
+    }
+
+    private func updateTask(id: String, title: String?, description: String?) {
         let completionHandler: (UpdatedTask) -> Void = { [weak self] result in
             guard let weakSelf = self else { return }
-            weakSelf.dataSource.taskList?.change(of: id, to: result)
+            guard let index = weakSelf.dataSource.taskList?.change(of: id, to: result) else { return }
             let indexPath = IndexPath(row: index, section: 0)
             DispatchQueue.main.async {
                 weakSelf.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
         }
 
-        dataSource.updateTask(id: id, title: title, description: description, completionHandler: completionHandler, errorCompletion: getErrorCompletion(title: "cannot update task"))
+        dataSource.updateTask(id: id, title: title, description: description, completionHandler: completionHandler, errorCompletion: getErrorCompletion(title: "cannot update the task"))
     }
 }
 
@@ -94,11 +107,9 @@ extension HomeViewController: UITextViewDelegate {
         editingView = nil
     }
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        // ここで追加
         guard let text = textView.text, text != "" else { return true }
-        if let index = (textView.superview?.superview as? TaskCell)?.index {
-            guard let id = dataSource.taskList?.tasks[index].id else { return true }
-            updateTask(index: index, id: id, title: textView.text, description: nil)
+        if let id = (textView.superview?.superview as? TaskCell)?.task?.id {
+            updateTask(id: id, title: textView.text, description: nil)
             return true
         }
         textView.text = ""
@@ -125,4 +136,22 @@ extension HomeViewController: UITextViewDelegate {
 }
 
 extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let closeAction = UIContextualAction(style: .destructive, title: "完了") {[weak self] (_, _, success) in
+            guard let weakSelf = self else { return }
+            guard let id = weakSelf.dataSource.taskList?.tasks[indexPath.row].id else { return }
+            weakSelf.deleteTask(id: id)
+            success(true)
+        }
+        closeAction.backgroundColor = .blue
+        return UISwipeActionsConfiguration(actions: [closeAction])
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let detailAction = UIContextualAction(style: .normal, title: "詳細") { (_, _, success) in
+            success(true)
+        }
+        detailAction.backgroundColor = .purple
+        return UISwipeActionsConfiguration(actions: [detailAction])
+    }
 }

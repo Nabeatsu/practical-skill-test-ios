@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import practical_skill_test_ios
 
 class TaskListTest: XCTestCase {
 
@@ -28,6 +29,26 @@ class TaskListTest: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
         }
+    }
+
+    func testChangeTask() {
+        let now = Date()
+        let formatter = DateFormatter()
+        guard let dateString = formatter.stringByDefaultLocale(from: now) else { fatalError("can not convert: Logic Failure") }
+        let list: [String: TaskInList]? = ["id": TaskInList(title: "title", description: "description", createdAt: "05/08/2019, 19:10:17", updatedAt: "05/08/2019, 19:10:17")]
+        var task = TaskList(data: list)
+        _ = task.change(of: "id", to: UpdatedTask(title: "updated", description: "updated", updatedAt: dateString))
+        XCTAssertEqual(task.tasks.first!.id, "id")
+        XCTAssertEqual(task.tasks.first!.title, "updated")
+        XCTAssertEqual(task.tasks.first!.description, "updated")
+        XCTAssertNotEqual(task.tasks.first!.updatedAt, "05/08/2019, 19:10:17")
+    }
+
+    func testDeleteTask() {
+        let list: [String: TaskInList]? = ["id": TaskInList(title: "title", description: "description", createdAt: "05/08/2019, 19:10:17", updatedAt: "05/08/2019, 19:10:17")]
+        var task = TaskList(data: list)
+        _ = task.delete(of: "id")
+        XCTAssertEqual(task.tasks.isEmpty, true)
     }
 
 }

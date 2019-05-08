@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		2789DC0FA30DD646F1C94808 /* Pods_practical_skill_test_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DDC1D23B83A01C6DA284F26 /* Pods_practical_skill_test_iosUITests.framework */; };
 		2F72CEE2D596911C69F570C4 /* Pods_practical_skill_test_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080B4789BE4DD4ABF8D36147 /* Pods_practical_skill_test_ios.framework */; };
+		5508AAEC2282B6FF0097320E /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508AAEB2282B6FF0097320E /* UIView+extension.swift */; };
+		5508AAEE2282B8E30097320E /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508AAED2282B8E30097320E /* TaskDetailViewController.swift */; };
+		5508AAF02282C8170097320E /* TaskManagible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508AAEF2282C8170097320E /* TaskManagible.swift */; };
+		5508AAF22282CE1B0097320E /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508AAF12282CE1B0097320E /* DetailModel.swift */; };
 		550CC1D32279D83E00D9C93B /* APIClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550CC1D22279D83E00D9C93B /* APIClientTest.swift */; };
 		556AAEE2227A7E700066CBCD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AAEE1227A7E700066CBCD /* HomeViewController.swift */; };
 		556AAEE8227AA4700066CBCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 556AAEE7227AA4700066CBCD /* GoogleService-Info.plist */; };
@@ -62,6 +66,10 @@
 
 /* Begin PBXFileReference section */
 		080B4789BE4DD4ABF8D36147 /* Pods_practical_skill_test_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_practical_skill_test_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5508AAEB2282B6FF0097320E /* UIView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extension.swift"; sourceTree = "<group>"; };
+		5508AAED2282B8E30097320E /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		5508AAEF2282C8170097320E /* TaskManagible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagible.swift; sourceTree = "<group>"; };
+		5508AAF12282CE1B0097320E /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
 		550CC1D22279D83E00D9C93B /* APIClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTest.swift; sourceTree = "<group>"; };
 		556AAEE1227A7E700066CBCD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		556AAEE7227AA4700066CBCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -160,6 +168,7 @@
 			children = (
 				55B9AB452278EB0900C38266 /* RegisterViewController.swift */,
 				556AAEE1227A7E700066CBCD /* HomeViewController.swift */,
+				5508AAED2282B8E30097320E /* TaskDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -168,6 +177,8 @@
 			isa = PBXGroup;
 			children = (
 				556AAEF6227DCC1F0066CBCD /* HomeModel.swift */,
+				5508AAEF2282C8170097320E /* TaskManagible.swift */,
+				5508AAF12282CE1B0097320E /* DetailModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -206,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				556AAEF2227CFD7F0066CBCD /* Date+extension.swift */,
+				5508AAEB2282B6FF0097320E /* UIView+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -618,14 +630,18 @@
 				55C1E5EE227F923E000A61EE /* ResponseList.swift in Sources */,
 				556AAEF3227CFD7F0066CBCD /* Date+extension.swift in Sources */,
 				556AAEF7227DCC1F0066CBCD /* HomeModel.swift in Sources */,
+				5508AAEE2282B8E30097320E /* TaskDetailViewController.swift in Sources */,
 				55B9AB462278EB0900C38266 /* RegisterViewController.swift in Sources */,
 				556AAEF0227C154D0066CBCD /* TaskId.swift in Sources */,
 				55B9AB742278ECA400C38266 /* AuthClient.swift in Sources */,
 				55B9AB762278ECC200C38266 /* AuthDelegate.swift in Sources */,
+				5508AAF22282CE1B0097320E /* DetailModel.swift in Sources */,
 				5573B66D2280873D0082523D /* UpdatedTask.swift in Sources */,
 				556AAEFB227DF79F0066CBCD /* TaskCell.swift in Sources */,
 				556AAEEE227C0D300066CBCD /* TaskInList.swift in Sources */,
 				55B9AB442278EB0900C38266 /* AppDelegate.swift in Sources */,
+				5508AAF02282C8170097320E /* TaskManagible.swift in Sources */,
+				5508AAEC2282B6FF0097320E /* UIView+extension.swift in Sources */,
 				55C1E5F0227F92CA000A61EE /* FirebaseDBClient.swift in Sources */,
 				556AAF00227DFCD50066CBCD /* InstantiatableFromNib.swift in Sources */,
 				55C1E5F7227FE388000A61EE /* FormCell.swift in Sources */,

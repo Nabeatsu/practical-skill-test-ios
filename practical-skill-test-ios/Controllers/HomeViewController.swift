@@ -23,10 +23,32 @@ class HomeViewController: UIViewController {
     var editingView: UITextView?
     var dataSource = HomeModel()
     let authClient = AuthClient()
+    var refreshControl: UIRefreshControl!
+    let semaphore = DispatchSemaphore(value: 1)
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "再読込")
+        refreshControl.addTarget(self, action: #selector(HomeViewController.refresh), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+
         dataSource.textViewDelegate = self
         loadTasks()
+    }
+
+    @objc func refresh() {
+        dataSource.taskList = nil
+        refreshControl.beginRefreshing()
+        DispatchQueue.global().async {
+            self.loadTasks()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.semaphore.signal()
+            }
+        }
+        semaphore.wait()
+        semaphore.signal()
+        refreshControl.endRefreshing()
     }
 
     private func getErrorCompletion(title: String) -> (String) -> Void {
@@ -73,8 +95,9 @@ class HomeViewController: UIViewController {
     }
 
     private func deleteTask(id: String) {
-        let completionHandler: (Int) -> Void = { [weak self] index in
+        let completionHandler: () -> Void = { [weak self] in
             guard let weakSelf = self else { return }
+            guard let index = weakSelf.dataSource.taskList?.delete(of: id) else { return }
             let indexPath = IndexPath(row: index, section: 0)
             DispatchQueue.main.async {
                 weakSelf.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -148,7 +171,13 @@ extension HomeViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let detailAction = UIContextualAction(style: .normal, title: "詳細") { (_, _, success) in
+        let detailAction = UIContextualAction(style: .normal, title: "詳細") { [weak self] (_, _, success) in
+            guard let weakSelf = self,
+                let storyboard = weakSelf.storyboard else { return }
+            let nextVC = storyboard.instantiateViewController(withIdentifier: "Detail") as! TaskDetailViewController
+            nextVC.task = weakSelf.dataSource.taskList?.tasks[indexPath.row]
+            weakSelf.present(nextVC, animated: true)
+
             success(true)
         }
         detailAction.backgroundColor = .purple

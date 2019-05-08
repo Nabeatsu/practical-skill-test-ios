@@ -165,10 +165,10 @@
             </objects>
             <point key="canvasLocation" x="1542" y="23"/>
         </scene>
-        <!--Task Detail View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="5BQ-We-DQ8">
             <objects>
-                <viewController storyboardIdentifier="Detail" id="MFA-Xy-Sxq" customClass="TaskDetailViewController" customModule="practical_skill_test_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Detail" id="MFA-Xy-Sxq" customClass="DetailViewController" customModule="practical_skill_test_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="keU-g5-1Rd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

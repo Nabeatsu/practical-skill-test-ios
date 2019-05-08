@@ -10,7 +10,7 @@
 		2789DC0FA30DD646F1C94808 /* Pods_practical_skill_test_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DDC1D23B83A01C6DA284F26 /* Pods_practical_skill_test_iosUITests.framework */; };
 		2F72CEE2D596911C69F570C4 /* Pods_practical_skill_test_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080B4789BE4DD4ABF8D36147 /* Pods_practical_skill_test_ios.framework */; };
 		5508AAEC2282B6FF0097320E /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508AAEB2282B6FF0097320E /* UIView+extension.swift */; };
-		5508AAEE2282B8E30097320E /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508AAED2282B8E30097320E /* TaskDetailViewController.swift */; };
+		5508AAEE2282B8E30097320E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508AAED2282B8E30097320E /* DetailViewController.swift */; };
 		5508AAF02282C8170097320E /* TaskManagible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508AAEF2282C8170097320E /* TaskManagible.swift */; };
 		5508AAF22282CE1B0097320E /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508AAF12282CE1B0097320E /* DetailModel.swift */; };
 		550CC1D32279D83E00D9C93B /* APIClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550CC1D22279D83E00D9C93B /* APIClientTest.swift */; };
@@ -67,7 +67,7 @@
 /* Begin PBXFileReference section */
 		080B4789BE4DD4ABF8D36147 /* Pods_practical_skill_test_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_practical_skill_test_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5508AAEB2282B6FF0097320E /* UIView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extension.swift"; sourceTree = "<group>"; };
-		5508AAED2282B8E30097320E /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		5508AAED2282B8E30097320E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		5508AAEF2282C8170097320E /* TaskManagible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagible.swift; sourceTree = "<group>"; };
 		5508AAF12282CE1B0097320E /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
 		550CC1D22279D83E00D9C93B /* APIClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTest.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 			children = (
 				55B9AB452278EB0900C38266 /* RegisterViewController.swift */,
 				556AAEE1227A7E700066CBCD /* HomeViewController.swift */,
-				5508AAED2282B8E30097320E /* TaskDetailViewController.swift */,
+				5508AAED2282B8E30097320E /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -630,7 +630,7 @@
 				55C1E5EE227F923E000A61EE /* ResponseList.swift in Sources */,
 				556AAEF3227CFD7F0066CBCD /* Date+extension.swift in Sources */,
 				556AAEF7227DCC1F0066CBCD /* HomeModel.swift in Sources */,
-				5508AAEE2282B8E30097320E /* TaskDetailViewController.swift in Sources */,
+				5508AAEE2282B8E30097320E /* DetailViewController.swift in Sources */,
 				55B9AB462278EB0900C38266 /* RegisterViewController.swift in Sources */,
 				556AAEF0227C154D0066CBCD /* TaskId.swift in Sources */,
 				55B9AB742278ECA400C38266 /* AuthClient.swift in Sources */,

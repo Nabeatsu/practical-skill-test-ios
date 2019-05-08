@@ -9,7 +9,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    @IBOutlet weak private var tableView: UITableView! {
+    @IBOutlet weak internal var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.estimatedRowHeight = 100
@@ -24,7 +24,6 @@ class HomeViewController: UIViewController {
     var dataSource = HomeModel()
     let authClient = AuthClient()
     var refreshControl: UIRefreshControl!
-    let semaphore = DispatchSemaphore(value: 1)
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshControl = UIRefreshControl()
@@ -39,15 +38,10 @@ class HomeViewController: UIViewController {
     @objc func refresh() {
         dataSource.taskList = nil
         refreshControl.beginRefreshing()
-        DispatchQueue.global().async {
-            self.loadTasks()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.semaphore.signal()
-            }
+        self.loadTasks()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
-        semaphore.wait()
-        semaphore.signal()
         refreshControl.endRefreshing()
     }
 
@@ -174,8 +168,9 @@ extension HomeViewController: UITableViewDelegate {
         let detailAction = UIContextualAction(style: .normal, title: "詳細") { [weak self] (_, _, success) in
             guard let weakSelf = self,
                 let storyboard = weakSelf.storyboard else { return }
-            let nextVC = storyboard.instantiateViewController(withIdentifier: "Detail") as! TaskDetailViewController
-            nextVC.task = weakSelf.dataSource.taskList?.tasks[indexPath.row]
+            let nextVC = storyboard.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
+            nextVC.dataSource.task = weakSelf.dataSource.taskList?.tasks[indexPath.row]
+            nextVC.delegate = self
             weakSelf.present(nextVC, animated: true)
 
             success(true)
@@ -184,3 +179,5 @@ extension HomeViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [detailAction])
     }
 }
+
+extension HomeViewController: HomeAndDetailSyncDelegate {}

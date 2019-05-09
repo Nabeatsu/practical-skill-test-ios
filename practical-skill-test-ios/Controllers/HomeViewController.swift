@@ -14,15 +14,28 @@ class HomeViewController: UIViewController {
     var editingField: UITextField?
     var dataSource = HomeModel()
     let authClient = AuthClient()
+    var activityIndicatorView = UIActivityIndicatorView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource.textFieldDelegate = self
-        tableView.delegate = self
-        tableView.estimatedRowHeight = 1000
-        tableView.dataSource = dataSource
-        tableView.register(UINib(nibName: TaskCell.nibName, bundle: nil), forCellReuseIdentifier: TaskCell.nibName)
-        tableView.register(UINib(nibName: FormCell.nibName, bundle: nil), forCellReuseIdentifier: FormCell.nibName)
+
+        do {
+            tableView.delegate = self
+            tableView.estimatedRowHeight = 1000
+            tableView.dataSource = dataSource
+            tableView.register(UINib(nibName: TaskCell.nibName, bundle: nil), forCellReuseIdentifier: TaskCell.nibName)
+            tableView.register(UINib(nibName: FormCell.nibName, bundle: nil), forCellReuseIdentifier: FormCell.nibName)
+        }
+
+        do {
+            activityIndicatorView.center = view.center
+            activityIndicatorView.style = .whiteLarge
+            activityIndicatorView.color = .blue
+            view.addSubview(activityIndicatorView)
+        }
         loadTasks()
+
     }
 
     private func getErrorCompletion(title: String) -> (String) -> Void {
@@ -41,7 +54,11 @@ class HomeViewController: UIViewController {
             weakSelf.dataSource.taskList = TaskList(data: result)
             DispatchQueue.main.async {
                 weakSelf.tableView.reloadData()
+                weakSelf.activityIndicatorView.stopAnimating()
             }
+        }
+        DispatchQueue.main.async {
+            self.activityIndicatorView.startAnimating()
         }
         dataSource.loadTasks(completionHandler, getErrorCompletion(title: "cannnot create the task"))
     }
@@ -58,7 +75,11 @@ class HomeViewController: UIViewController {
                 weakSelf.dataSource.taskList?.tasks.append(task)
                 weakSelf.tableView.endUpdates()
                 weakSelf.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                weakSelf.activityIndicatorView.stopAnimating()
             }
+        }
+        DispatchQueue.main.async {
+            self.activityIndicatorView.startAnimating()
         }
         dataSource.createTask(
             title: title,

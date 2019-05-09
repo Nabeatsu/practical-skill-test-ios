@@ -19,8 +19,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZeE-Rj-iQz">
-                        <rect key="frame" x="20" y="10" width="280" height="23.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZeE-Rj-iQz">
+                        <rect key="frame" x="20" y="10" width="250" height="23.5"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -28,9 +28,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="ZeE-Rj-iQz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="fGk-oI-Gf5"/>
-                    <constraint firstAttribute="trailing" secondItem="ZeE-Rj-iQz" secondAttribute="trailing" constant="20" id="gE4-rW-6E8"/>
+                    <constraint firstAttribute="trailing" secondItem="ZeE-Rj-iQz" secondAttribute="trailing" constant="50" id="gE4-rW-6E8"/>
                     <constraint firstAttribute="bottom" secondItem="ZeE-Rj-iQz" secondAttribute="bottom" constant="10" id="jbt-9B-Nic"/>
-                    <constraint firstItem="ZeE-Rj-iQz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" priority="999" constant="10" id="myo-7O-9Bb"/>
+                    <constraint firstItem="ZeE-Rj-iQz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="myo-7O-9Bb"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

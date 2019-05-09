@@ -33,6 +33,7 @@ extension HomeModel: UITableViewDataSource {
                 fatalError("failed casting UITableViewCell to TaskCell")
             }
             cell.task = taskList.tasks[indexPath.row]
+            cell.layoutIfNeeded()
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FormCell.nibName, for: indexPath) as? FormCell else {

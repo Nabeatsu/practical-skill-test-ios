@@ -9,16 +9,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    @IBOutlet weak internal var tableView: UITableView! {
-        didSet {
-            tableView.delegate = self
-            tableView.estimatedRowHeight = 1000
-            tableView.rowHeight = UITableView.automaticDimension
-            tableView.dataSource = dataSource
-            tableView.register(UINib(nibName: TaskCell.nibName, bundle: nil), forCellReuseIdentifier: TaskCell.nibName)
-            tableView.register(UINib(nibName: FormCell.nibName, bundle: nil), forCellReuseIdentifier: FormCell.nibName)
-        }
-    }
+    @IBOutlet weak internal var tableView: UITableView!
 
     var editingField: UITextField?
     var dataSource = HomeModel()
@@ -26,6 +17,11 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource.textFieldDelegate = self
+        tableView.delegate = self
+        tableView.estimatedRowHeight = 1000
+        tableView.dataSource = dataSource
+        tableView.register(UINib(nibName: TaskCell.nibName, bundle: nil), forCellReuseIdentifier: TaskCell.nibName)
+        tableView.register(UINib(nibName: FormCell.nibName, bundle: nil), forCellReuseIdentifier: FormCell.nibName)
         loadTasks()
     }
 
@@ -140,6 +136,10 @@ extension HomeViewController: UITextFieldDelegate {
 }
 
 extension HomeViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard indexPath.section != 1  else { return nil}
         let closeAction = UIContextualAction(style: .destructive, title: "完了") {[weak self] (_, _, success) in

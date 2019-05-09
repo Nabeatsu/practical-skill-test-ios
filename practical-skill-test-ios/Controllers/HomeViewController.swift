@@ -156,7 +156,9 @@ extension HomeViewController: UITableViewDelegate {
             guard let weakSelf = self,
                 let storyboard = weakSelf.storyboard else { return }
             let vcName: VCList = .detail
-            let nextVC = storyboard.instantiateViewController(withIdentifier: vcName.rawValue) as! DetailViewController
+            guard let nextVC = storyboard.instantiateViewController(withIdentifier: vcName.rawValue) as? DetailViewController else {
+                fatalError("cannot initialize. storyboard ID and VCList's rawValue may not match")
+            }
             nextVC.dataSource.task = weakSelf.dataSource.taskList?.tasks[indexPath.row]
             nextVC.delegate = self
             weakSelf.present(nextVC, animated: true)

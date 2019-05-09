@@ -15,7 +15,9 @@ protocol InstantiatableFromNib {
 extension InstantiatableFromNib where Self: UIView {
     static var nibName: String { return String(describing: Self.self) }
     func loadNib() {
-        let view = Bundle.main.loadNibNamed(Self.nibName, owner: self, options: nil)?.first as! UIView
+        guard let view = Bundle.main.loadNibNamed(Self.nibName, owner: self, options: nil)?.first as? UIView else {
+            fatalError("cannot load Nib. names of xib and .swift files may not match")
+        }
         view.frame = self.frame
         self.addSubview(view)
     }

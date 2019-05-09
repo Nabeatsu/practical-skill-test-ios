@@ -29,11 +29,16 @@ extension HomeModel: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             guard let taskList = taskList, !taskList.tasks.isEmpty else { return UITableViewCell() }
-            let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.nibName, for: indexPath) as! TaskCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.nibName, for: indexPath) as? TaskCell else {
+                fatalError("failed casting UITableViewCell to TaskCell")
+            }
             cell.task = taskList.tasks[indexPath.row]
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: FormCell.nibName, for: indexPath) as! FormCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: FormCell.nibName, for: indexPath) as? FormCell else {
+                fatalError("failed casting UITableViewCell to FormCell")
+            }
+
             cell.textFieldDelegate = textFieldDelegate
 
             return cell

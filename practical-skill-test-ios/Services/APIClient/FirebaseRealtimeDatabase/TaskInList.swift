@@ -41,8 +41,8 @@ struct TaskInList: Codable, APIClientProtocol {
 
 struct TaskList {
     var tasks: [Task]
-    mutating func change(of taskId: String, to task: UpdatedTask) -> Int {
-        let index = tasks.map { $0.id }.firstIndex(of: taskId)!
+    mutating func change(of taskId: String, to task: UpdatedTask) -> Int? {
+        guard let index = (tasks.map { $0.id }).firstIndex(of: taskId) else { return nil }
         let updatedTask = Task(
             id: tasks[index].id,
             title: task.title ?? tasks[index].title,
@@ -54,8 +54,8 @@ struct TaskList {
         return index
     }
 
-    mutating func delete(of taskID: String) -> Int {
-        let index = tasks.map { $0.id }.firstIndex(of: taskID)!
+    mutating func delete(of taskID: String) -> Int? {
+        guard let index = (tasks.map { $0.id }).firstIndex(of: taskID) else { return nil }
         tasks.remove(at: index)
         return index
     }

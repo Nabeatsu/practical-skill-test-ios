@@ -4,7 +4,6 @@
 //
 //  Created by 田辺信之 on 2019/05/01.
 //  Copyright © 2019 田辺信之. All rights reserved.
-//
 
 import Foundation
 

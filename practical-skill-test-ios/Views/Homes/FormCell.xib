@@ -26,7 +26,7 @@
                             <constraint firstAttribute="height" constant="1" id="Yoc-4J-cV8"/>
                         </constraints>
                     </view>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zwg-wv-WlC">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="新規作成" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zwg-wv-WlC">
                         <rect key="frame" x="20" y="10" width="280" height="32.5"/>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>

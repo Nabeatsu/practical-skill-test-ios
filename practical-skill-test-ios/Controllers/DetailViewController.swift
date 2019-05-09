@@ -127,10 +127,6 @@ protocol HomeAndDetailSyncDelegate: AnyObject {
 
 extension HomeAndDetailSyncDelegate where Self: HomeViewController {
     func sync(of taskId: String, to task: UpdatedTask) {
-        guard let index = dataSource.taskList?.change(of: taskId, to: task) else { return }
-        let indexPath = IndexPath(row: index, section: 0)
-        DispatchQueue.main.async {
-            self.tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
+        _ = dataSource.taskList?.change(of: taskId, to: task)
     }
 }

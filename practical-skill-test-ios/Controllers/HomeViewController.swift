@@ -141,6 +141,7 @@ extension HomeViewController: UITextFieldDelegate {
 
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard indexPath.section != 1  else { return nil}
         let closeAction = UIContextualAction(style: .destructive, title: "完了") {[weak self] (_, _, success) in
             guard let weakSelf = self else { return }
             guard let id = weakSelf.dataSource.taskList?.tasks[indexPath.row].id else { return }
@@ -152,6 +153,7 @@ extension HomeViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard indexPath.section != 1 else { return nil }
         let detailAction = UIContextualAction(style: .normal, title: "変更") { [weak self] (_, _, success) in
             guard let weakSelf = self,
                 let storyboard = weakSelf.storyboard else { return }
@@ -167,6 +169,10 @@ extension HomeViewController: UITableViewDelegate {
         }
         detailAction.backgroundColor = .purple
         return UISwipeActionsConfiguration(actions: [detailAction])
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
     }
 }
 
